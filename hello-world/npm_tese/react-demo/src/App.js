@@ -1,12 +1,12 @@
 import logo from './logo.svg';
 import CustomBtn from './Components/CustomBtn';
+import Main from './Components/Main';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <CustomBtn/>
-      <h1> Hellooooo Matte</h1>
+      <Main/>
     </div>
   );
 }
