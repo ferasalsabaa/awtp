@@ -17,3 +17,7 @@ def tutorial2():
 @app.route("/tutorial3")
 def tutorial3():
     return render_template("broadcast-object.html")
+
+@app.route("/tutorial4")
+def tutorial4():
+    return render_template("logger_example.html")
