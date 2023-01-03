@@ -6,6 +6,7 @@
     <meta http-equiv="Content-Type" content="application/vnd.hbbtv.xml+xhtml; utf-8" />
     <link rel="stylesheet" href="static/hello-world.css">
     <script type="text/javascript" src="static/hello-world.js"></script>
+    <script src="./dist/rmp-vast.min.js"></script>
 </head>
 
 <body onload="sayHello();">
@@ -14,7 +15,17 @@
     </div>
     <div class="safe_area" id="app_area">
         <div class="center">
-            <p class="hello_style">Hello world!</p>
+            <div class="rmp-container" id="rmp">
+                <div class="rmp-content">
+                  <video
+                    class="rmp-video"
+                    src="https://www.rmp-streaming.com/media/big-buck-bunny-360p.mp4"
+                    playsinline
+                    muted
+                    controls
+                  ></video>
+                </div>
+              </div>
         </div>
     </div>
 </body>

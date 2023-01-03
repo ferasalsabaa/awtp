@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Vast generator</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<style>
+body,h1,h5 {font-family: "Raleway", sans-serif}
+body, html {height: 100%}
+.bgimg {
+  background-image: url('static/pics_videos/back.jpg');
+  min-height: 100%;
+  background-position: center;
+  background-size: cover;
+}
+</style>
+</head>
+<body>
+
+<div class="bgimg w3-display-container w3-text-white">
+  <div class="w3-display-middle w3-jumbo">
+
+  </div>
+  
+  <div class="w3-display-topleft w3-container w3-xlarge">
+    <br> <br> <br>
+    <form onsubmit="myFunction()" method="post">
+        <label for="ad_input">insert your ad here:</label>
+        <input type="text" id="ad_input" name="ad_input"><br><br>
+        <label for="ads_template">Choose the template:</label>
+
+        <select name="templates" id="templates">
+          <option value="Linear_video_Ad">Linear video Ad</option>
+          <option value="Nonlinear_video_ads">Nonlinear video ads</option>
+
+        </select>  <br><br>
+        <input type="submit" value="Submit" class="w3-button w3-black">
+      </form> 
+  </div>
+  <div class="w3-display-bottomleft w3-container">
+    <p class="w3-xlarge">HbbTV interactive DA</p>
+    <p class="w3-large">group 2</p>
+  </div>
+</div>
+
+</body>
+</html>
