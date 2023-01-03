@@ -1,6 +1,15 @@
+import json
 from flask import Flask, render_template
 
 app = Flask(__name__)
+
+def load_json():
+    f = open("/Users/fawazbechara/Documents/Uni/Master@TU/awtp/test.json")
+    json_data = json.load(f)
+    print(json_data)
+    print(json_data["width"])
+    f.close()
+    return json_data
 
 @app.route("/")
 def home():
@@ -12,7 +21,8 @@ def tutorial1():
 
 @app.route("/tutorial2")
 def tutorial2():
-    return render_template("rc-interaction.html")
+    json_data = load_json()
+    return render_template("rc-interaction.html", json_file = json_data)
 
 @app.route("/tutorial3")
 def tutorial3():

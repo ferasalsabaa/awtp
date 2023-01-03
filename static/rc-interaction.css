@@ -48,16 +48,16 @@ div#app_area {
 
 div.red_button_style {
     position: absolute;
-    left: 320px;
+    /* left: 320px;
     top: 600px;
     width: 960px;
-    height: 84px;
+    height: 84px; */
     /* red background */
-    background-color: red;
+    /* background-color: #ff0000; */
     /* centered text */
-    font-size: 36px;
+    /* font-size: 36px;
     text-align: center;
-    line-height: 84px;
+    line-height: 84px;  */
 }
 
 

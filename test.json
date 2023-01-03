@@ -1,0 +1,15 @@
+{
+    "type": "standard-banner",
+    "imageResizing": false,
+    "duration_in_ms": 5000, 
+    "width": "70%",
+    "height": "80px",
+    "left": "200px",
+    "top": "600px",
+    "margin" : "auto",
+    "background-color": false,
+    "background-image": "/Users/fawazbechara/Documents/Uni/Master@TU/awtp/background-image.jpeg",
+    "font-size": "36px",
+    "text-align": "center",
+    "line-height": "84px"
+}

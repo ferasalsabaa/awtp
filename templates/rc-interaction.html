@@ -7,11 +7,34 @@
     <link rel="stylesheet" href="static/rc-interaction.css" />
     <script type="text/javascript" src="static/rc-buttons.js"></script>
     <script type="text/javascript" src="static/rc-interaction.js"></script>
+    <!-- <script>
+        document.addEventListener("DOMContentLoaded",function createBanner() {
+            var json_data = {{json_file|tojson}};
+            console.log(json_data);
+            if (json_data['type'] == 'standard-banner'){
+                var elem = document.getElementById("red_button_notification_field");
+                elem.style.width = json_data["width"];
+                elem.style.height = json_data["height"];
+                elem.style.left = json_data['left'];
+                // elem.style.margin = json_data['margin'];
+                elem.style.top = json_data["top"];
+                if (json_data["background-color"] != false){
+                    elem.style.backgroundColor = json_data["background-color"];
+                } else {
+                    elem.style.backgroundImage = "url('static/background-image.jpeg')";
+                }
+                elem.style.fontSize = json_data["font-size"];
+                elem.style.textAlign = json_data["text-align"];
+                elem.style.lineHeight = json_data["line-height"];
+            }
+        })
+    </script> -->
 </head>
 
-<body onload="start();">
+<body>
     <div>
         <object type="application/oipfApplicationManager" id="applicationManager"> </object>
+        <object type="video/broadcast" id="broadcastVideo"> </object>
     </div>
     <!-- we shall define a safe area for the main scene -->
     <div class="safe_area" id="app_area">
@@ -42,7 +65,42 @@
             </div>
         </div>
     </div>
-    <div class="red_button_style" id="red_button_notification_field">Press the red button on the RC to start!</div>
+    <!-- <div class="red_button_style" id="red_button_notification_field">Press the red button on the RC to start!</div> -->
 </body>
+<script>
+    setInterval(load_ad, 20000)
 
+    function load_ad(){
+        var json_data = {{json_file|tojson}};
+        var div_elem = document.createElement("div");
+
+        console.log(json_data);
+        if (json_data['type'] == 'standard-banner'){
+            // var elem = document.getElementById("red_button_notification_field");
+            div_elem.classList.add("red_button_style");
+            div_elem.id = "red_button_notification_field";
+            div_elem.style.width = json_data["width"];
+            div_elem.style.height = json_data["height"];
+            div_elem.style.left = json_data['left'];
+            div_elem.style.top = json_data["top"];
+            if (json_data["background-color"] != false){
+                div_elem.style.backgroundColor = json_data["background-color"];
+            } else {
+                div_elem.style.backgroundImage = "url('static/background-image.jpeg')";
+            }
+            div_elem.style.fontSize = json_data["font-size"];
+            div_elem.style.textAlign = json_data["text-align"];
+            div_elem.style.lineHeight = json_data["line-height"];
+            div_elem.innerHTML = "Press the red button on the RC to start!";
+        }
+        document.body.appendChild(div_elem)
+        start();
+        setTimeout(delete_ad, json_data["duration_in_ms"], div_elem.id);
+    }
+
+    function delete_ad(element_id){
+        var item = document.getElementById(element_id);
+        item.remove();
+    }
+</script>
 </html>
