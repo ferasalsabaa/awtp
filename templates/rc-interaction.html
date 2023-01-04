@@ -102,13 +102,13 @@
             video.autoplay = true;
             video.classList.add("red_button_style");
             video.id = "red_button_notification_field";
+            
             video.style.width = json_data["width"];
             video.style.height = json_data["height"];
             video.style.left = json_data['left'];
             video.style.top = json_data["top"];
+
             video.name = json_data["open_link"];
-            video.style.textAlign = json_data["text-align"];
-            video.style.lineHeight = json_data["line-height"];
         }
         document.body.appendChild(div_elem)
         document.getElementById("red_button_notification_field").appendChild(img);

@@ -2,10 +2,10 @@
     "type": "video",
     "imageResizing": false,
     "duration_in_ms": 20000, 
-    "width": "80%",
-    "height": "900px",
-    "left": "200px",
-    "top": "600px",
+    "width": "50%",
+    "height": "50%",
+    "left": "50px",
+    "top": "500px",
     "margin" : "auto",
     "background-color": false,
     "background-image": "/Users/fawazbechara/Documents/Uni/Master@TU/awtp/background-image.jpeg",
@@ -14,5 +14,5 @@
     "line-height": "84px",
     "open_link": "https://www.google.com/",
     "ad_text": "Text for ads",
-    "src": "video_sample.mp4"
+    "src": "https://raw.githubusercontent.com/ferasalsabaa/awtp/Tutorials/video_sample.mp4"
 }
