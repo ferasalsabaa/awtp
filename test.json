@@ -1,7 +1,7 @@
 {
     "type": "standard-banner",
     "imageResizing": false,
-    "duration_in_ms": 5000, 
+    "duration_in_ms": 50000, 
     "width": "70%",
     "height": "80px",
     "left": "200px",
@@ -11,5 +11,7 @@
     "background-image": "/Users/fawazbechara/Documents/Uni/Master@TU/awtp/background-image.jpeg",
     "font-size": "36px",
     "text-align": "center",
-    "line-height": "84px"
+    "line-height": "84px",
+    "open_link": "https://www.google.com/",
+    "ad_text": "Text for ads"
 }
