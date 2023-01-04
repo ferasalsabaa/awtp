@@ -49,6 +49,8 @@
     function load_ad(){
         var json_data = {{json_file|tojson}};
         var div_elem = document.createElement("div");
+        var img = document.createElement("img");
+        var video = document.createElement("video");
 
         console.log(json_data);
         if (json_data['type'] == 'standard-banner'){
@@ -68,11 +70,53 @@
             div_elem.style.fontSize = json_data["font-size"];
             div_elem.style.textAlign = json_data["text-align"];
             div_elem.style.lineHeight = json_data["line-height"];
-            div_elem.innerHTML = "Press the red button on the RC to start!";
+            div_elem.innerHTML = json_data["ad_text"];
+
+        } else if(json_data['type'] == 'picture'){
+            div_elem.classList.add("red_button_style");
+            div_elem.id = "red_button_notification_field";
+            div_elem.style.width = json_data["width"];
+            div_elem.style.height = json_data["height"];
+            div_elem.style.left = json_data['left'];
+            div_elem.style.top = json_data["top"];
+            div_elem.name = json_data["open_link"];
+            img.src = json_data["src"];
+            img.classList.add("red_button_style");
+            img.id = "red_button_notification_field";
+            img.style.width = json_data["width"];
+            img.style.height = json_data["height"];
+            img.style.left = json_data['left'];
+            img.style.top = json_data["top"];
+            img.name = json_data["open_link"];
+            img.style.textAlign = json_data["text-align"];
+            img.style.lineHeight = json_data["line-height"];
+        } else if(json_data['type'] == 'video'){
+            div_elem.classList.add("red_button_style");
+            div_elem.id = "red_button_notification_field";
+            div_elem.style.width = json_data["width"];
+            div_elem.style.height = json_data["height"];
+            div_elem.style.left = json_data['left'];
+            div_elem.style.top = json_data["top"];
+            div_elem.name = json_data["open_link"];
+            video.src = json_data["src"];
+            video.autoplay = true;
+            video.classList.add("red_button_style");
+            video.id = "red_button_notification_field";
+            video.style.width = json_data["width"];
+            video.style.height = json_data["height"];
+            video.style.left = json_data['left'];
+            video.style.top = json_data["top"];
+            video.name = json_data["open_link"];
+            video.style.textAlign = json_data["text-align"];
+            video.style.lineHeight = json_data["line-height"];
         }
         document.body.appendChild(div_elem)
+        document.getElementById("red_button_notification_field").appendChild(img);
+        document.getElementById("red_button_notification_field").appendChild(video);
         start();
         setTimeout(delete_ad, json_data["duration_in_ms"], div_elem.id);
+        setTimeout(delete_ad, json_data["duration_in_ms"], img.id);
+        setTimeout(delete_ad, json_data["duration_in_ms"], video.id);
     }
 
     function delete_ad(element_id){
