@@ -4,7 +4,7 @@ from flask import Flask, render_template
 app = Flask(__name__)
 
 def load_json():
-    f = open("da_video.json")
+    f = open("l-banner.json")
     json_data = json.load(f)
     print(json_data)
     print(json_data["width"])
