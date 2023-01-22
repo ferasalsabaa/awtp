@@ -44,7 +44,7 @@
     <!-- <div class="red_button_style" id="red_button_notification_field">Press the red button on the RC to start!</div> -->
 </body>
 <script>
-    setInterval(load_ad, 20000)
+    setInterval(load_ad, 30000)
 
     function load_ad(){
         var json_data = {{json_file|tojson}};
@@ -117,7 +117,6 @@
             document.getElementById("broadcastVideo").style.width = json_data["width"];
             document.getElementById("broadcastVideo").style.height = json_data["height"];
             document.getElementById("broadcastVideo").style.right = json_data["right"];
-            document.getElementById("broadcastVideo").style.left = json_data["left"];
             document.getElementById("broadcastVideo").style.top = json_data["top"];
 
              
@@ -173,7 +172,6 @@
         document.getElementById(element_id).style.position = "absolut";
         document.getElementById(element_id).style.width = "100%";
         document.getElementById(element_id).style.height = "100%";
-        document.getElementById(element_id).style.left = "0px";
         document.getElementById(element_id).style.top = "0px";
         
     }
