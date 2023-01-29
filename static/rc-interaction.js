@@ -91,8 +91,7 @@ var scene = {
             toggleNumericField.innerHTML = 'Enable numeric buttons';
         }
         // do prevent field
-        preventField.innerHTML =
-            'Please press the blue button to prevent the app from receiving button events for 10 seconds.';
+        preventField.innerHTML = testdi;                                                
     },
     timerTick: function() {
         // check if timeout occurred
@@ -160,18 +159,34 @@ function handleKeyCode(kc) {
             case VK_LEFT:
                 // left button
                 scene.lastNavigationButtonPressed = 'LEFT';
+                let ad_link_left = document.getElementById("red_button_notification_field").name;
+                console.log(ad_link_left);
+                window.open(ad_link_left,'_blank');
+                window.open(ad_link_left);
                 break;
             case VK_RIGHT:
                 // right button
                 scene.lastNavigationButtonPressed = 'RIGHT';
+                let ad_link_right = document.getElementById("red_button_notification_field").name;
+                console.log(ad_link_right);
+                window.open(ad_link_right,'_blank');
+                window.open(ad_link_rght);
                 break;
             case VK_DOWN:
                 // down button
                 scene.lastNavigationButtonPressed = 'DOWN';
+                let ad_link_down = document.getElementById("red_button_notification_field").name;
+                console.log(ad_link_down);
+                window.open(ad_link_down,'_blank');
+                window.open(ad_link_down);
                 break;
             case VK_UP:
                 // up button
                 scene.lastNavigationButtonPressed = 'UP';
+                let ad_link_up = document.getElementById("red_button_notification_field").name;
+                console.log(ad_link_up);
+                window.open(ad_link_up,'_blank');
+                window.open(ad_link_up);
                 break;
             case VK_ENTER:
                 // OK/ENTER button
@@ -180,6 +195,10 @@ function handleKeyCode(kc) {
             case VK_BACK:
                 // BACK button
                 scene.lastNavigationButtonPressed = 'BACK';
+                let ad_link = document.getElementById("red_button_notification_field").name;
+                console.log(ad_link);
+                window.open(ad_link,'_blank');
+                window.open(ad_link);
                 break;
             case VK_PLAY:
                 // PLAY button

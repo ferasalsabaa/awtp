@@ -1,0 +1,17 @@
+{
+    "type": "picture",
+    "imageResizing": false,
+    "duration_in_ms": 20000, 
+    "width": "80%",
+    "height": "90px",
+    "left": "200px",
+    "top": "600px",
+    "margin" : "auto",
+    "background-color": false,
+    "font-size": "36px",
+    "text-align": "center",
+    "line-height": "84px",
+    "open_link": "https://www.google.com/",
+    "ad_text": "Text for ads",
+    "src": "https://cdn.pixabay.com/photo/2021/09/12/07/58/banner-6617553_1280.jpg"
+}

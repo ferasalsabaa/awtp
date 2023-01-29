@@ -7,28 +7,6 @@
     <link rel="stylesheet" href="static/rc-interaction.css" />
     <script type="text/javascript" src="static/rc-buttons.js"></script>
     <script type="text/javascript" src="static/rc-interaction.js"></script>
-    <!-- <script>
-        document.addEventListener("DOMContentLoaded",function createBanner() {
-            var json_data = {{json_file|tojson}};
-            console.log(json_data);
-            if (json_data['type'] == 'standard-banner'){
-                var elem = document.getElementById("red_button_notification_field");
-                elem.style.width = json_data["width"];
-                elem.style.height = json_data["height"];
-                elem.style.left = json_data['left'];
-                // elem.style.margin = json_data['margin'];
-                elem.style.top = json_data["top"];
-                if (json_data["background-color"] != false){
-                    elem.style.backgroundColor = json_data["background-color"];
-                } else {
-                    elem.style.backgroundImage = "url('static/background-image.jpeg')";
-                }
-                elem.style.fontSize = json_data["font-size"];
-                elem.style.textAlign = json_data["text-align"];
-                elem.style.lineHeight = json_data["line-height"];
-            }
-        })
-    </script> -->
 </head>
 
 <body>
@@ -39,12 +17,10 @@
     <!-- we shall define a safe area for the main scene -->
     <div class="safe_area" id="app_area">
         <!-- title -->
-        <div class="title_text">RC interaction demo</div>
+        <div class="title_text">AD Interaction</div>
         <!-- status -->
-        <div class="status_text">Navigation button: <span id="navigation_field"></span></div>
-        <div class="status_text">Playback control button: <span id="playback_field"></span></div>
-        <div class="status_text">Numeric button: <span id="numeric_field"></span></div>
-        <div class="status_text" id="prevent_field"></div>
+        <div class="status_text">choose up down left or right to open the ad link <span id="navigation_field"></span></div>
+
         <!-- bottom legend -->
         <div class="bottom_legend">
             <div class="legend_cell">
@@ -68,11 +44,15 @@
     <!-- <div class="red_button_style" id="red_button_notification_field">Press the red button on the RC to start!</div> -->
 </body>
 <script>
-    setInterval(load_ad, 20000)
+    setInterval(load_ad, 30000)
 
     function load_ad(){
         var json_data = {{json_file|tojson}};
         var div_elem = document.createElement("div");
+        var div_elem_2 = document.createElement("div");
+        var img = document.createElement("img");
+        var img_2 = document.createElement("img");
+        var video = document.createElement("video");
 
         console.log(json_data);
         if (json_data['type'] == 'standard-banner'){
@@ -83,6 +63,8 @@
             div_elem.style.height = json_data["height"];
             div_elem.style.left = json_data['left'];
             div_elem.style.top = json_data["top"];
+            div_elem.name = json_data["open_link"];
+            div_elem.innerHTML = json_data["ad_text"];
             if (json_data["background-color"] != false){
                 div_elem.style.backgroundColor = json_data["background-color"];
             } else {
@@ -91,16 +73,107 @@
             div_elem.style.fontSize = json_data["font-size"];
             div_elem.style.textAlign = json_data["text-align"];
             div_elem.style.lineHeight = json_data["line-height"];
-            div_elem.innerHTML = "Press the red button on the RC to start!";
+            div_elem.innerHTML = json_data["ad_text"];
+
+        } else if(json_data['type'] == 'picture'){
+            div_elem.classList.add("red_button_style");
+            div_elem.id = "red_button_notification_field";
+            div_elem.style.width = json_data["width"];
+            div_elem.style.height = json_data["height"];
+            div_elem.style.left = json_data['left'];
+            div_elem.style.top = json_data["top"];
+            div_elem.name = json_data["open_link"];
+            img.src = json_data["src"];
+            img.classList.add("red_button_style");
+            img.id = "red_button_notification_field";
+            img.style.width = json_data["width"];
+            img.style.height = json_data["height"];
+            img.style.left = json_data['left'];
+            img.style.top = json_data["top"];
+            img.name = json_data["open_link"];
+            img.style.textAlign = json_data["text-align"];
+            img.style.lineHeight = json_data["line-height"];
+        } else if(json_data['type'] == 'video'){
+            div_elem.classList.add("red_button_style");
+            div_elem.id = "red_button_notification_field";
+            div_elem.style.width = json_data["width"];
+            div_elem.style.height = json_data["height"];
+            div_elem.style.left = json_data['left'];
+            div_elem.style.top = json_data["top"];
+            div_elem.name = json_data["open_link"];
+            video.src = json_data["src"];
+            video.autoplay = true;
+            video.classList.add("red_button_style");
+            video.id = "red_button_notification_field";
+            
+            video.style.width = json_data["width"];
+            video.style.height = json_data["height"];
+            video.style.left = json_data['left'];
+            video.style.top = json_data["top"];
+
+            video.name = json_data["open_link"];
+        } else if(json_data['type'] == 'l-banner'){
+            document.getElementById("broadcastVideo").style.position = json_data["position"];
+            document.getElementById("broadcastVideo").style.width = json_data["width"];
+            document.getElementById("broadcastVideo").style.height = json_data["height"];
+            document.getElementById("broadcastVideo").style.right = json_data["right"];
+            document.getElementById("broadcastVideo").style.top = json_data["top"];
+
+             
+            div_elem_2.classList.add("red_button_style");
+            div_elem_2.id = "red_button_notification_field_2";
+            div_elem.style.position = json_data["position"];
+            div_elem_2.style.width = json_data["width_div_2"];
+            div_elem_2.style.height = json_data["height_div_2"];
+            div_elem_2.style.left = json_data["left_div_2"];
+            div_elem_2.style.top = json_data["top_div_2"];
+
+            div_elem.classList.add("red_button_style");
+            div_elem.id = "red_button_notification_field";
+            div_elem.style.position = json_data["position"];
+            div_elem.style.width = json_data["width_div"];
+            div_elem.style.height = json_data["height_div"];
+            div_elem.style.left = json_data['left_div'];
+            div_elem.style.bottom = json_data["bottom_div"];
+
+
+            
+
+            img.style.width = json_data["width_img_1"];
+            img.style.height = json_data["height_img_1"];
+            img.src = json_data["src_1"];
+
+            img_2.style.width = json_data["width_img_2"];
+            img_2.style.height = json_data["height_img_2"];
+            img_2.src = json_data["src_2"];
         }
+        document.body.appendChild(div_elem_2)
         document.body.appendChild(div_elem)
+        document.getElementById("red_button_notification_field").appendChild(img);
+        document.getElementById("red_button_notification_field_2").appendChild(img_2);
+        document.getElementById("red_button_notification_field").appendChild(video);
         start();
         setTimeout(delete_ad, json_data["duration_in_ms"], div_elem.id);
+        setTimeout(delete_ad, json_data["duration_in_ms"], div_elem_2.id);
+        setTimeout(delete_ad, json_data["duration_in_ms"], img.id);
+        setTimeout(delete_ad, json_data["duration_in_ms"], img_2.id);
+        setTimeout(delete_ad, json_data["duration_in_ms"], video.id);
+
+        setTimeout(delete_lBanner, json_data["duration_in_ms"], "broadcastVideo");
     }
 
     function delete_ad(element_id){
         var item = document.getElementById(element_id);
         item.remove();
+    }
+
+    function delete_lBanner(element_id){
+        var item = document.getElementById(element_id);
+        document.getElementById(element_id).style.position = "absolut";
+        document.getElementById(element_id).style.width = "100%";
+        document.getElementById(element_id).style.height = "100%";
+        document.getElementById(element_id).style.top = "0px";
+        
     }
 </script>
 </html>
