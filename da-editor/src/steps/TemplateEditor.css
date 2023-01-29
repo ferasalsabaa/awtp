@@ -1,0 +1,41 @@
+.editor {
+    height: 500px;
+    width: 95%;
+    margin: 0 auto;
+    position: relative;
+    /* overflow: hidden; */
+    border: 1px solid lightgray;
+    margin-top: 1rem;
+}
+
+.tv-background {
+    position: absolute;
+    background: rgb(203, 203, 235);
+    border: 2px solid gray;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 200px;
+}
+
+.elements-toolbar {
+    position: absolute;
+    background: #CFC;
+    border: 2px solid gray;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 200px;
+}
+
+.banner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 200px;
+}
+
+.is-dragged {
+    opacity: 0.5;
+}

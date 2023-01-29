@@ -1,0 +1,124 @@
+.banner-standard {
+    position: absolute;
+    left: 250px;
+    right: 250px;
+    bottom: 30px;
+    height: 100px;
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid black;
+    overflow: hidden;
+}
+
+.banner-L-left{
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0; 
+    width: 200px;
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid black;
+    overflow-x: visible;
+    overflow-y: hidden;
+}
+
+.banner-L-bottom{
+    position: absolute;
+    left: 200px;
+    right: 0;
+    bottom: 0;
+    height: 100px;
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid black;
+    border-left: none;
+    overflow-x: visible;
+    overflow-y: hidden;
+}
+
+.input-fields{
+    width: 95%;
+    min-height: 200px;
+    position: relative;
+    background: wheat;
+    border: 2px solid gray;
+    margin: auto;
+}
+
+.banner-inputs{
+    width: 95%;
+    min-height: 100px;
+    position: relative;
+    background: wheat;
+    border: 2px solid gray;
+    margin: 0 auto;
+    padding: 15px;
+}
+
+.banner-element{
+    position: absolute;
+    margin-right: 20px;
+}
+
+.remove-button-div{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.remove-button{
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    top: 0;
+    right: 0;
+}
+
+.submit-banner-button {
+    margin: 15px;
+}
+
+.is-over {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.banner-text-element {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 30px;
+    border: 1px solid black;
+}
+
+.banner-portrait-element {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    height: 70px;
+    border: 1px solid black;
+}
+
+.banner-landscape-element {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70px;
+    border: 1px solid black;
+    aspect-ratio: 16 / 9;
+}
+
+.banner-skyscraper-element {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    border: 1px solid black;
+    aspect-ratio: 9 / 16;
+}
