@@ -3,7 +3,7 @@
     width: 95%;
     margin: 0 auto;
     position: relative;
-    /* overflow: hidden; */
+    overflow: hidden;
     border: 1px solid lightgray;
     margin-top: 1rem;
 }
@@ -34,6 +34,60 @@
     left: 0;
     bottom: 0;
     right: 200px;
+}
+
+.banner-inputs{
+    width: 95%;
+    min-height: 100px;
+    position: relative;
+    background: wheat;
+    border: 2px solid gray;
+    margin: 10px auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    /* padding: 15px; */
+}
+
+.general-info{
+    display: flex;
+    flex-direction: column;
+    width: 450px;
+    padding-right: 20px;
+    border-right: 1px solid black;
+}
+
+
+.individual-info{
+    width: 450px;
+    border-right: 1px solid black;
+}
+
+
+.submit-banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sumbit-banner-button{
+    width: 200px;
+    height: 70px;
+    background-color: aliceblue;
+    border: 1px solid black;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+
+.sumbit-banner-button:hover{
+    background-color: rgb(204, 230, 252);
+    cursor: pointer;
+}
+
+.sumbit-banner-button:active{
+    background-color: rgb(151, 204, 250);
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
 }
 
 .is-dragged {

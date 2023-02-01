@@ -1,0 +1,57 @@
+{
+    "generalInfo":{
+        "type": "",
+        "duration": "",
+        "width": "",
+        "height": "",
+        "alignment": {
+            "top": "",
+            "left": ""
+            },
+        "background-type": "",
+        "background-color": "",
+        "background-image": "",
+        "interactivity": ""
+        },
+    "elements":{
+        "element_0":{
+            "type": "portrait",
+            "url": "",
+            "size": "", 
+            "coordinates":{
+                "top": "",
+                "left": ""
+                }
+            },
+        "element_1":{
+            "type": "text",
+            "content": "",
+            "font-size": "",
+            "color": "",
+            "text_decoration": "",
+            "font-weight": "",
+            "coordinates":{
+                "top": "",
+                "left": ""
+                }
+            },
+        "element_2":{
+            "type": "landscape",
+            "url": "",
+            "size": "", 
+            "coordinates":{
+                "top": "",
+                "left": ""
+                }
+            },
+        "element_3":{
+            "type": "skyscraper",
+            "url": "",
+            "size": "", 
+            "coordinates":{
+                "top": "",
+                "left": ""
+                }
+            },
+        }
+    }

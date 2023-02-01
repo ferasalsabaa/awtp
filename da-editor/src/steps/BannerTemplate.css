@@ -34,25 +34,6 @@
     overflow-y: hidden;
 }
 
-.input-fields{
-    width: 95%;
-    min-height: 200px;
-    position: relative;
-    background: wheat;
-    border: 2px solid gray;
-    margin: auto;
-}
-
-.banner-inputs{
-    width: 95%;
-    min-height: 100px;
-    position: relative;
-    background: wheat;
-    border: 2px solid gray;
-    margin: 0 auto;
-    padding: 15px;
-}
-
 .banner-element{
     position: absolute;
     margin-right: 20px;
@@ -73,10 +54,6 @@
     outline: none;
     top: 0;
     right: 0;
-}
-
-.submit-banner-button {
-    margin: 15px;
 }
 
 .is-over {

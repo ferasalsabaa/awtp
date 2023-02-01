@@ -2,46 +2,37 @@ import React from 'react';
 import './BannerInputs.css';
 import { ToolTypes } from './ToolTypes';
 
-export const BannerInputs = () => {
-    const [banner_inputs, setInputs] = React.useState([]);
-
-    const addInputField = (type) => {
-        const newInput = {
-            type
-        }
-        setInputs((prevElements) => [...prevElements, newInput])
-    };
-
+export const BannerInputs = ({elements}) => {
     return (
-        <div>
-            <h4>The input fields will appear here after elements are added to the banner</h4>
-            <div className='banner-inputs'>{banner_inputs.map((input_field, index) => {
-                if (input_field.type === ToolTypes.Text) {
-                    return <div key={index} className="banner-text-element-input">
-                        <label for="text_input">Den Text, der in Text {index} stehen soll, eingeben:</label>
+        <>
+            <h4>Fill the elements</h4>
+            <div className='input-fields'>{elements.map((element, index) => {
+                if (element.type === ToolTypes.Text) {
+                    return <div key={index} className="banner-element-input">
+                        <label hmtlFor="text_input">Text {index}:</label>
                         <input type="text" id="text_input"/>
                     </div>
                 }
-                else if (input_field.type === ToolTypes.Portrait){
-                    return <div key={index} className="banner-text-element-input">
-                        <label for="portrait_input">URL für Portrait {index} eingeben:</label>
+                else if (element.type === ToolTypes.Portrait){
+                    return <div key={index} className="banner-element-input">
+                        <label hmtlFor="portrait_input">Portrait {index} URL:</label>
                         <input type="text" id="portrait_input"/>
                     </div>
                 } 
-                else if (input_field.type === ToolTypes.Landscape){
-                    return <div key={index} className="banner-text-element-input">
-                        <label for="landscape_input">URL für Landscape {index} eingeben:</label>
+                else if (element.type === ToolTypes.Landscape){
+                    return <div key={index} className="banner-element-input">
+                        <label htmlFor="landscape_input">Landscape {index} URL:</label>
                         <input type="text" id="landscape_input"/>
                     </div>
                 } 
-                else if (input_field.type === ToolTypes.Skyscraper){
-                    return <div key={index} className="banner-text-element-input">
-                        <label for="skyscraper_input">URL für Skyscraper {index} eingeben:</label>
+                else if (element.type === ToolTypes.Skyscraper){
+                    return <div key={index} className="banner-element-input">
+                        <label hmtlFor="skyscraper_input">Skyscraper {index} URL:</label>
                         <input type="text" id="skyscraper_input"/>
                     </div>
-                } 
+                }
                 return null;
             })}</div>
-        </div>
+        </>
     );
 }

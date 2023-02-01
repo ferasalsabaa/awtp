@@ -4,8 +4,11 @@ import { BannerInputs } from './BannerInputs';
 import { useDrop, useDragDropManager } from 'react-dnd'
 import { ToolTypes } from './ToolTypes';
 import { mergeRefs } from "react-merge-refs";
+import { element } from 'prop-types';
 
-export const BannerTemplate = ({ template }) => {
+export const BannerTemplate = ({ template, elements, setElements }) => {
+    console.log(elements)
+    console.log(JSON.stringify(elements))
     const dragDropManager = useDragDropManager();
     const monitor = dragDropManager.getMonitor();
     // const monitor_L_Banner_Left = dragDropManager.getMonitor();
@@ -13,17 +16,7 @@ export const BannerTemplate = ({ template }) => {
     const dropZone = React.useRef();
     // const dropZone_L_Banner_Left = React.useRef();
     // const dropZone_L_Banner_Bottom = React.useRef();
-    const [elements, setElements] = React.useState([]);
-    const [banner_inputs, setInputs] = React.useState([]);
 
-    const addInputField = (type, coordinates) => {
-        const newInput = {
-            type,
-            x : coordinates.x
-        }
-        setInputs((prevElements) => [...prevElements, newInput])
-    };
-    
     const addElement = (type, coordinates) => {
         const newElement = {
             type,
@@ -34,11 +27,8 @@ export const BannerTemplate = ({ template }) => {
     };
 
     const removeElement = (x) => {
-        console.log(elements)
         const newElements = elements.filter((element) => element.x !== x);
         setElements(newElements)
-        const newInputs = banner_inputs.filter((element) => element.x !== x)
-        setInputs(newInputs)
     }
 
     // Needed to get cursor coords
@@ -47,15 +37,14 @@ export const BannerTemplate = ({ template }) => {
     // React.useEffect(() => monitor_L_Banner_Bottom.subscribeToOffsetChange(() => {}), [monitor_L_Banner_Bottom]);
 
 	const [{ isOver }, drop] = useDrop(
-		() => ({
-			accept: [ToolTypes.Text,ToolTypes.Portrait, ToolTypes.Landscape, ToolTypes.Skyscraper],
-			drop: function (item) { 
+        () => ({
+            accept: [ToolTypes.Text,ToolTypes.Portrait, ToolTypes.Landscape, ToolTypes.Skyscraper],
+			drop: function (item, monitor) { 
                 const cursorOffset = monitor.getClientOffset()
                 const containerRect = dropZone.current?.getBoundingClientRect()
                 const containerOffset = { x: containerRect.left, y: containerRect.top }
                 const position = { x: cursorOffset.x - containerOffset.x, y: cursorOffset.y - containerOffset.y }
                 addElement(item.type, position)
-                addInputField(item.type, position)
              },
 			collect: (monitor) => ({
 				isOver: !!monitor.isOver(),
@@ -149,7 +138,7 @@ export const BannerTemplate = ({ template }) => {
                     } 
                     return null;
                 })}</div>
-                <div className='input-fields'>
+                {/* <div className='input-fields'>
                     <h4>The input fields will appear here after elements are added to the banner</h4>
                     <div className='banner-inputs'>{banner_inputs.map((input_field, index) => {
                         if (input_field.type === ToolTypes.Text) {
@@ -178,10 +167,7 @@ export const BannerTemplate = ({ template }) => {
                         } 
                         return null;
                     })}</div>
-                    <div className='submit-banner-button'>
-                        <button className='sumbit-banner'>Save Banner Instance as JSON</button>
-                    </div>
-                </div>
+                </div> */}
             </>
         );
     }

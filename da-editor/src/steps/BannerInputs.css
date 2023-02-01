@@ -1,4 +1,31 @@
-.banner-inputs{
-    /* position: absolute;
-    width: 100%; */
+.input-fields{
+    width: 95%;
+    min-height: 200px;
+    position: relative;
+    background: wheat;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.banner-element-input{
+    margin-bottom: 10px;
+}
+
+.banner-element-input label{
+    font-size: large;
+    text-decoration: underline;
+}
+
+.banner-element-input input, 
+.banner-element-input select{
+    width: 200px;
+    height: 20px;
+    margin-left: 10px;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+.label-input{
+    margin-bottom: 10px;
 }

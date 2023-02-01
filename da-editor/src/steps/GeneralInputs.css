@@ -1,0 +1,17 @@
+.general-info-inputs label{
+    font-size: large;
+    text-decoration: underline;
+}
+
+.general-info-inputs input, 
+.general-info-inputs select{
+    width: 200px;
+    height: 20px;
+    margin-left: 10px;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+.label-input{
+    margin-bottom: 10px;
+}
