@@ -1,14 +1,11 @@
 import React from 'react';
 import './BannerTemplate.css';
-import { BannerInputs } from './BannerInputs';
 import { useDrop, useDragDropManager } from 'react-dnd'
 import { ToolTypes } from './ToolTypes';
 import { mergeRefs } from "react-merge-refs";
-import { element } from 'prop-types';
+import { banner_json } from '../data';
 
 export const BannerTemplate = ({ template, elements, setElements }) => {
-    console.log(elements)
-    console.log(JSON.stringify(elements))
     const dragDropManager = useDragDropManager();
     const monitor = dragDropManager.getMonitor();
     // const monitor_L_Banner_Left = dragDropManager.getMonitor();
@@ -24,6 +21,7 @@ export const BannerTemplate = ({ template, elements, setElements }) => {
             y: coordinates.y,
         }
         setElements((prevElements) => [...prevElements, newElement])
+        // addJsonRow(elements.indexOf(newElement))
     };
 
     const removeElement = (x) => {
@@ -39,7 +37,7 @@ export const BannerTemplate = ({ template, elements, setElements }) => {
 	const [{ isOver }, drop] = useDrop(
         () => ({
             accept: [ToolTypes.Text,ToolTypes.Portrait, ToolTypes.Landscape, ToolTypes.Skyscraper],
-			drop: function (item, monitor) { 
+			drop: function (item, monitor) {
                 const cursorOffset = monitor.getClientOffset()
                 const containerRect = dropZone.current?.getBoundingClientRect()
                 const containerOffset = { x: containerRect.left, y: containerRect.top }
