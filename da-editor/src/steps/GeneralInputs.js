@@ -22,7 +22,7 @@ export const GeneralInputs = ({}) => {
     }
 
     const changeJson = (type, data) => {
-        banner_json['generalInfo'][type] = data;
+        banner_json['banner-data']['generalInfo'][type] = data;
         console.log(banner_json);
     }
 

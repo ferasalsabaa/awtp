@@ -12,31 +12,48 @@ export const TemplateEditor = ({ template }) => {
     const [elements, setElements] = React.useState([]);
     const input_dict = {}
 
+    function sendFile(){
+        const recipeUrl = 'http://127.0.0.1:8000/upload'
+        const requestMetadata = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(banner_json['banner-data'])
+        };
+        console.log(requestMetadata.body)
+
+        fetch(recipeUrl, requestMetadata)
+        .then(res => console.log(res));
+    }
+
     const createJson = () => {
         banner_json['elements'] = {};
         console.log(elements);
         console.log(elements.length);
+        console.log(input_dict);
         for (var i=0; i < elements.length; i++){
-            banner_json['elements']['element'+i] = {};
+            banner_json['banner-data']['elements']['element'+i] = {};
             if (elements[i].type == 'text'){
-                banner_json["elements"]['element'+i]['type'] = elements[i].type;
-                banner_json["elements"]['element'+i]['content'] = input_dict['element'+i];
-                banner_json["elements"]['element'+i]['font-size'] = '20px';
-                banner_json["elements"]['element'+i]['color'] = 'black';
-                banner_json["elements"]['element'+i]['text_decoration'] = "none";
-                banner_json["elements"]['element'+i]['font-weight'] = "normal";
+                banner_json['banner-data']["elements"]['element'+i]['type'] = elements[i].type;
+                banner_json['banner-data']["elements"]['element'+i]['content'] = input_dict['element'+i];
+                banner_json['banner-data']["elements"]['element'+i]['font-size'] = '20px';
+                banner_json['banner-data']["elements"]['element'+i]['color'] = 'black';
+                banner_json['banner-data']["elements"]['element'+i]['text_decoration'] = "none";
+                banner_json['banner-data']["elements"]['element'+i]['font-weight'] = "normal";
             } else {
-                banner_json["elements"]['element'+i]['type'] = elements[i].type;
-                banner_json["elements"]['element'+i]['url'] = input_dict['element'+i];
-                banner_json["elements"]['element'+i]['width'] = '';
-                banner_json["elements"]['element'+i]['height'] = '';
+                banner_json['banner-data']["elements"]['element'+i]['type'] = elements[i].type;
+                banner_json['banner-data']["elements"]['element'+i]['url'] = input_dict['element'+i];
+                banner_json['banner-data']["elements"]['element'+i]['width'] = '';
+                banner_json['banner-data']["elements"]['element'+i]['height'] = '';
             } 
-            banner_json["elements"]['element'+i]['coordinates'] = {};
-            banner_json["elements"]['element'+i]['coordinates']['top'] = elements[i].y
-            banner_json["elements"]['element'+i]['coordinates']['left'] = elements[i].x
+            banner_json['banner-data']["elements"]['element'+i]['coordinates'] = {};
+            banner_json['banner-data']["elements"]['element'+i]['coordinates']['top'] = elements[i].y
+            banner_json['banner-data']["elements"]['element'+i]['coordinates']['left'] = elements[i].x
         }
         console.log(banner_json)
         console.log(JSON.stringify(banner_json))
+        sendFile()
     }
 
     return (
