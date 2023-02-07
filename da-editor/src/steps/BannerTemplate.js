@@ -11,14 +11,15 @@ export const BannerTemplate = ({ template, elements, setElements }) => {
     // const monitor_L_Banner_Left = dragDropManager.getMonitor();
     // const monitor_L_Banner_Bottom = dragDropManager.getMonitor();
     const dropZone = React.useRef();
-    // const dropZone_L_Banner_Left = React.useRef();
-    // const dropZone_L_Banner_Bottom = React.useRef();
+    const dropZone_L_Banner_Left = React.useRef();
+    const dropZone_L_Banner_Bottom = React.useRef();
 
-    const addElement = (type, coordinates) => {
+    const addElement = (type, coordinates, area) => {
         const newElement = {
             type,
             x: coordinates.x,
             y: coordinates.y,
+            area
         }
         setElements((prevElements) => [...prevElements, newElement])
         // addJsonRow(elements.indexOf(newElement))
@@ -34,7 +35,7 @@ export const BannerTemplate = ({ template, elements, setElements }) => {
     // React.useEffect(() => monitor_L_Banner_Left.subscribeToOffsetChange(() => {}), [monitor_L_Banner_Left]);
     // React.useEffect(() => monitor_L_Banner_Bottom.subscribeToOffsetChange(() => {}), [monitor_L_Banner_Bottom]);
 
-	const [{ isOver }, drop] = useDrop(
+	const [{ isOver: isOver_standard }, drop] = useDrop(
         () => ({
             accept: [ToolTypes.Text,ToolTypes.Portrait, ToolTypes.Landscape, ToolTypes.Skyscraper],
 			drop: function (item, monitor) {
@@ -42,7 +43,7 @@ export const BannerTemplate = ({ template, elements, setElements }) => {
                 const containerRect = dropZone.current?.getBoundingClientRect()
                 const containerOffset = { x: containerRect.left, y: containerRect.top }
                 const position = { x: cursorOffset.x - containerOffset.x, y: cursorOffset.y - containerOffset.y }
-                addElement(item.type, position)
+                addElement(item.type, position, 'standard')
              },
 			collect: (monitor) => ({
 				isOver: !!monitor.isOver(),
@@ -51,40 +52,42 @@ export const BannerTemplate = ({ template, elements, setElements }) => {
 		}),
 		[],
 	)
-    // const [{ isOver_L_Banner_Left }, drop_L_Banner_Left] = useDrop(
-	// 	() => ({
-	// 		accept: [ToolTypes.Text,ToolTypes.Portrait, ToolTypes.Landscape, ToolTypes.Skyscraper],
-	// 		drop_L_Banner_Left: function (item) { 
-    //             const cursorOffset = monitor_L_Banner_Left.getClientOffset()
-    //             const containerRect = dropZone.current?.getBoundingClientRect()
-    //             const containerOffset = { x: containerRect.left, y: containerRect.top }
-    //             const position = { x: cursorOffset.x - containerOffset.x, y: cursorOffset.y - containerOffset.y }
-    //             addElement(item.type, position)
-    //          },
-	// 		collect: (monitor_L_Banner_Left) => ({
-	// 			isOver_L_Banner_Left: !!monitor_L_Banner_Left.isOver(),
-	// 			canDrop_L_Banner_Left: !!monitor_L_Banner_Left.canDrop(),
-	// 		}),
-	// 	}),
-	// 	[],
-	// )
-    // const [{ isOver_L_Banner_Bottom }, drop_L_Banner_Bottom] = useDrop(
-	// 	() => ({
-	// 		accept: [ToolTypes.Text,ToolTypes.Portrait, ToolTypes.Landscape, ToolTypes.Skyscraper],
-	// 		drop_L_Banner_Bottom: function (item) { 
-    //             const cursorOffset = monitor_L_Banner_Bottom.getClientOffset()
-    //             const containerRect = dropZone.current?.getBoundingClientRect()
-    //             const containerOffset = { x: containerRect.left, y: containerRect.top }
-    //             const position = { x: cursorOffset.x - containerOffset.x, y: cursorOffset.y - containerOffset.y }
-    //             addElement(item.type, position)
-    //          },
-	// 		collect: (monitor_L_Banner_Bottom) => ({
-	// 			isOver_L_Banner_Bottom: !!monitor_L_Banner_Bottom.isOver(),
-	// 			canDrop_L_Banner_Bottom: !!monitor_L_Banner_Bottom.canDrop(),
-	// 		}),
-	// 	}),
-	// 	[],
-	// )
+	const [{ isOver : isOver_left }, drop_left] = useDrop(
+        () => ({
+            accept: [ToolTypes.Text,ToolTypes.Portrait, ToolTypes.Landscape, ToolTypes.Skyscraper],
+			drop: function (item, monitor) {
+                const cursorOffset = monitor.getClientOffset()
+                const containerRect = dropZone_L_Banner_Left.current?.getBoundingClientRect()
+                const containerOffset = { x: containerRect.left, y: containerRect.top }
+                const position = { x: cursorOffset.x - containerOffset.x, y: cursorOffset.y - containerOffset.y }
+                addElement(item.type, position, 'left')
+             },
+			collect: (monitor) => ({
+				isOver: !!monitor.isOver(),
+				canDrop: !!monitor.canDrop(),
+			}),
+		}),
+		[],
+	)
+	const [{ isOver: isOver_bottom }, drop_bottom] = useDrop(
+        () => ({
+            accept: [ToolTypes.Text,ToolTypes.Portrait, ToolTypes.Landscape, ToolTypes.Skyscraper],
+			drop: function (item, monitor) {
+                const cursorOffset = monitor.getClientOffset()
+                const containerRect = dropZone_L_Banner_Bottom.current?.getBoundingClientRect()
+                const containerOffset = { x: containerRect.left, y: containerRect.top }
+                const position = { x: cursorOffset.x - containerOffset.x, y: cursorOffset.y - containerOffset.y }
+                addElement(item.type, position, 'bottom')
+             },
+			collect: (monitor) => ({
+				isOver: !!monitor.isOver(),
+				canDrop: !!monitor.canDrop(),
+			}),
+		}),
+		[],
+	)
+
+    const isOver = isOver_bottom || isOver_left || isOver_standard
 
     if (template === 0) {
         return (
@@ -136,43 +139,13 @@ export const BannerTemplate = ({ template, elements, setElements }) => {
                     } 
                     return null;
                 })}</div>
-                {/* <div className='input-fields'>
-                    <h4>The input fields will appear here after elements are added to the banner</h4>
-                    <div className='banner-inputs'>{banner_inputs.map((input_field, index) => {
-                        if (input_field.type === ToolTypes.Text) {
-                            return <div key={index} className="banner-text-element-input">
-                                <label for="text_input">Text {index} eingeben: </label>
-                                <input type="text" id="text_input"/>
-                            </div>
-                        }
-                        else if (input_field.type === ToolTypes.Portrait){
-                            return <div key={index} className="banner-text-element-input">
-                                <label for="portrait_input">Portrait {index} URL eingeben: </label>
-                                <input type="text" id="portrait_input"/>
-                            </div>
-                        } 
-                        else if (input_field.type === ToolTypes.Landscape){
-                            return <div key={index} className="banner-text-element-input">
-                                <label for="landscape_input">Landscape {index} URL eingeben: </label>
-                                <input type="text" id="landscape_input"/>
-                            </div>
-                        } 
-                        else if (input_field.type === ToolTypes.Skyscraper){
-                            return <div key={index} className="banner-text-element-input">
-                                <label for="skyscraper_input">Skyscraper {index} URL eingeben: </label>
-                                <input type="text" id="skyscraper_input"/>
-                            </div>
-                        } 
-                        return null;
-                    })}</div>
-                </div> */}
             </>
         );
     }
     if (template === 1) {
         return (
             <>
-                <div ref={mergeRefs([drop, dropZone])} className={`banner-L-left ${isOver ? 'is-over' : ''}`}>{elements.map((element, index) => {
+                <div ref={mergeRefs([drop_left, dropZone_L_Banner_Left])} className={`banner-L-left ${isOver ? 'is-over' : ''}`}>{elements.filter((element) => element.area === 'left').map((element, index) => {
                     var top_pos, left_pos
                     if (element.type === ToolTypes.Text) {
                         top_pos = element.y - 20 //substract half of div height
@@ -196,7 +169,7 @@ export const BannerTemplate = ({ template, elements, setElements }) => {
                     } 
                     return null;
                 })}</div>
-                <div ref={mergeRefs([drop, dropZone])} className={`banner-L-bottom ${isOver ? 'is-over' : ''}`}>{elements.map((element, index) => {
+                <div ref={mergeRefs([drop_bottom, dropZone_L_Banner_Bottom])} className={`banner-L-bottom ${isOver ? 'is-over' : ''}`}>{elements.filter((element) => element.area === 'bottom').map((element, index) => {
                     var top_pos, left_pos
                     if (element.type === ToolTypes.Text) {
                         top_pos = element.y - 20 //substract half of div height
