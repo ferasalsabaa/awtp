@@ -36,16 +36,17 @@ export const TemplateEditor = ({ template }) => {
             banner_json['banner-data']['elements']['element'+i] = {};
             if (elements[i].type == 'text'){
                 banner_json['banner-data']["elements"]['element'+i]['type'] = elements[i].type;
-                banner_json['banner-data']["elements"]['element'+i]['content'] = input_dict['element'+i];
-                banner_json['banner-data']["elements"]['element'+i]['font-size'] = '20px';
-                banner_json['banner-data']["elements"]['element'+i]['color'] = 'black';
-                banner_json['banner-data']["elements"]['element'+i]['text_decoration'] = "none";
-                banner_json['banner-data']["elements"]['element'+i]['font-weight'] = "normal";
+                banner_json['banner-data']["elements"]['element'+i]['content'] = input_dict['element'+i]['content'];
+                banner_json['banner-data']["elements"]['element'+i]['font-size'] = input_dict['element'+i]['font-size'];
+                banner_json['banner-data']["elements"]['element'+i]['color'] = input_dict['element'+i]['color'];
+                banner_json['banner-data']["elements"]['element'+i]['text_decoration'] = input_dict['element'+i]['text-decoration'];
+                banner_json['banner-data']["elements"]['element'+i]['font-weight'] = input_dict['element'+i]['font-weight'];
+                banner_json['banner-data']["elements"]['element'+i]['text-align'] = input_dict['element'+i]['text-align'];
             } else {
                 banner_json['banner-data']["elements"]['element'+i]['type'] = elements[i].type;
-                banner_json['banner-data']["elements"]['element'+i]['url'] = input_dict['element'+i];
-                banner_json['banner-data']["elements"]['element'+i]['width'] = '';
-                banner_json['banner-data']["elements"]['element'+i]['height'] = '';
+                banner_json['banner-data']["elements"]['element'+i]['url'] = input_dict['element'+i]['image-url'];
+                banner_json['banner-data']["elements"]['element'+i]['width'] = input_dict['element'+i]['width'];
+                banner_json['banner-data']["elements"]['element'+i]['height'] = input_dict['element'+i]['height'];
             } 
             banner_json['banner-data']["elements"]['element'+i]['coordinates'] = {};
             banner_json['banner-data']["elements"]['element'+i]['coordinates']['top'] = elements[i].y

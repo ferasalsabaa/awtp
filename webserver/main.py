@@ -49,10 +49,14 @@ def send_file():
         print(request.args.getlist('minute')[0])
         if minute_requested % 2 == 0:
             file_path = str(random.choice(os.listdir("public/even/")))
+            with open(f'public/even/{file_path}', 'r') as openfile:
+                json_object = json.load(openfile)
             print(file_path)
         else:
             file_path = str(random.choice(os.listdir("public/odd/")))
-        return send_from_directory('public/even/', file_path)
+            with open(f'public/odd/{file_path}', 'r') as openfile:
+                json_object = json.load(openfile)
+        return json_object
     return 'No'
 
 if __name__ == '__main__':

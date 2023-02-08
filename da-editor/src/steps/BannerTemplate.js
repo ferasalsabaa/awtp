@@ -8,9 +8,7 @@ import { banner_json } from '../data';
 export const BannerTemplate = ({ template, elements, setElements }) => {
     const dragDropManager = useDragDropManager();
     const monitor = dragDropManager.getMonitor();
-    // const monitor_L_Banner_Left = dragDropManager.getMonitor();
-    // const monitor_L_Banner_Bottom = dragDropManager.getMonitor();
-    const dropZone = React.useRef();
+    const dropZone_standard = React.useRef();
     const dropZone_L_Banner_Left = React.useRef();
     const dropZone_L_Banner_Bottom = React.useRef();
 
@@ -22,7 +20,6 @@ export const BannerTemplate = ({ template, elements, setElements }) => {
             area
         }
         setElements((prevElements) => [...prevElements, newElement])
-        // addJsonRow(elements.indexOf(newElement))
     };
 
     const removeElement = (x) => {
@@ -32,15 +29,13 @@ export const BannerTemplate = ({ template, elements, setElements }) => {
 
     // Needed to get cursor coords
     React.useEffect(() => monitor.subscribeToOffsetChange(() => {}), [monitor]);
-    // React.useEffect(() => monitor_L_Banner_Left.subscribeToOffsetChange(() => {}), [monitor_L_Banner_Left]);
-    // React.useEffect(() => monitor_L_Banner_Bottom.subscribeToOffsetChange(() => {}), [monitor_L_Banner_Bottom]);
 
 	const [{ isOver: isOver_standard }, drop] = useDrop(
         () => ({
             accept: [ToolTypes.Text,ToolTypes.Image],
 			drop: function (item, monitor) {
                 const cursorOffset = monitor.getClientOffset()
-                const containerRect = dropZone.current?.getBoundingClientRect()
+                const containerRect = dropZone_standard.current?.getBoundingClientRect()
                 const containerOffset = { x: containerRect.left, y: containerRect.top }
                 const position = { x: cursorOffset.x - containerOffset.x, y: cursorOffset.y - containerOffset.y }
                 addElement(item.type, position, 'standard')
@@ -92,7 +87,7 @@ export const BannerTemplate = ({ template, elements, setElements }) => {
     if (template === 0) {
         return (
             <>
-                <div ref={mergeRefs([drop, dropZone])} className={`banner-standard ${isOver ? 'is-over' : ''}`}>{elements.map((element, index) => {
+                <div ref={mergeRefs([drop, dropZone_standard])} className={`banner-standard ${isOver ? 'is-over' : ''}`}>{elements.map((element, index) => {
                     // define new variables that are saving the middle of the div
                     var top_pos, left_pos
                     if (element.type === ToolTypes.Text) {

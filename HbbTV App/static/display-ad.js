@@ -8,9 +8,11 @@ function request_Ad() {
         type: 'GET',
         contentType: 'application/json; charset=utf-8',
         url: 'http://127.0.0.1:8000/get_ad',
+        responseType:'application/json',
         data: { minute : minutes},
         dataType: 'json',
         success: function (response) {
+            console.log(response)
             load_Ad(response)
         }
     })
@@ -25,9 +27,9 @@ function load_Ad(json_file){
     if (banner_type == 'standard-banner'){
         render_standard_banner(json_file);
     }
-    else if (banner_type = 'l-banner'){
-        render_l_banner(json_file);
-    }
+    // else if (banner_type = 'l-banner'){
+    //     render_l_banner(json_file);
+    // }
 }
 
 // render standard-banner
@@ -42,8 +44,12 @@ function render_standard_banner(json_file){
     // Set up general Styling of Banner
     div_elem.style.width = json_file['generalInfo']["width"];
     div_elem.style.height = json_file['generalInfo']["height"];
-    div_elem.style.left = json_file['generalInfo']['left'];
-    div_elem.style.top = json_file['generalInfo']["top"];
+    if (json_file['generalInfo']['alignment'] == 'Right-aligned'){
+        div_elem.style.right = json_file['generalInfo']['alignment']['right'];
+    } else {
+        div_elem.style.left = json_file['generalInfo']['alignment']['left'];
+    }
+    div_elem.style.top = json_file['generalInfo']['alignment']["top"];
 
     var interactivity = json_file['generalInfo']['interactivity'];
     if (interactivity == 'Link to Webpage'){
@@ -51,10 +57,10 @@ function render_standard_banner(json_file){
     }
     
     if (json_file['generalInfo']['background-type'] == 'Color'){
-        div_elem.style.backgroundColor = json_file["background-color"];
+        div_elem.style.backgroundColor = json_file['generalInfo']["background-color"];
     }
     else if (json_file['generalInfo']['background-type'] == 'Image') {
-        div_elem.style.backgroundImage = json_file["background-image"];
+        div_elem.style.backgroundImage = json_file[generalInfo]["background-image"];
     }
 
     // Set up inner elements of Banner
@@ -87,9 +93,9 @@ function render_standard_banner(json_file){
 }
 
 // render L-Banner
-function render_l_banner(){
-    pass
-}
+// function render_l_banner(){
+//     pass
+// }
 
     // function load_ad() {
     //     var json_data = {{ json_file| tojson }};

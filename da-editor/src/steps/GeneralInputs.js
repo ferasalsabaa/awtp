@@ -5,6 +5,18 @@ import { ToolTypes } from './ToolTypes';
 
 export const GeneralInputs = ({}) => {
     const [selects, setSelects] = React.useState();
+    const [selectInteractivity, setSelectInteractivity] = React.useState();
+
+    const renderInteractivity = (selects) => {
+        if (selects === "Link to Webpage") {
+            return <div className='label-input'>
+                <label htmlFor="input-interactivity-link-url">URL:</label>
+                <input type="text" id="input-interactivity-link-url" onChange={e => changeJson("link-url", e.target.value)}/>
+                </div>
+        } else {
+            changeJson("link-url", "")
+        }
+    }
 
     const renderBackgroundInput = (selects) => {
         if (selects === "Color") {
@@ -22,7 +34,19 @@ export const GeneralInputs = ({}) => {
     }
 
     const changeJson = (type, data) => {
-        banner_json['banner-data']['generalInfo'][type] = data;
+        if (type=='alignment'){
+            banner_json['banner-data']['generalInfo'][type] = {}
+            if (data == 'Centered'){
+                banner_json['banner-data']['generalInfo'][type]['left'] = '200px';
+            } else if (data == 'Left-aligned'){
+                banner_json['banner-data']['generalInfo'][type]['left'] = '10px';
+            } else if (data == 'Right-aligned'){
+                banner_json['banner-data']['generalInfo'][type]['right'] = '10px';
+            }
+            banner_json['banner-data']['generalInfo'][type]['top'] = '500px';
+        } else{
+            banner_json['banner-data']['generalInfo'][type] = data;
+        }
         console.log(banner_json);
     }
 
@@ -68,14 +92,14 @@ export const GeneralInputs = ({}) => {
                         {renderBackgroundInput(selects)}
                         <div className='label-input'>
                             <label htmlFor="input-interactivity">Interactivity:</label>
-                            <select type="text" id="input-interactivity" onChange={e => changeJson("interactivity", e.target.value)}>
+                            <select type="text" id="input-interactivity"  value={selectInteractivity} onChange={e => {setSelectInteractivity(e.target.value); changeJson("interactivity", e.target.value)}}>
                                 <option></option>
                                 <option>Link to Webpage</option>
-                                <option>Email Subscribe</option>
                                 <option>Quiz</option>
                                 <option>Survey</option>
                             </select>
                         </div>
+                        {renderInteractivity(selectInteractivity)}
                         <div className='label-input'>
                             <label htmlFor="input-duration">Duration in ms:</label>
                             <input type="text" id="input-duration" onChange={e => changeJson("duration", e.target.value)}/>
