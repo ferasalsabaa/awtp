@@ -1,4 +1,5 @@
 from datetime import datetime
+from pathlib import Path
 import json
 import os
 import random
@@ -20,11 +21,13 @@ def upload_file():
         json_file_name = str(now.strftime('%d_%m_%Y_%H_%M_%S')) + '.json'
         minute = int(json_file_name.split("_")[4])
         if minute % 2 == 0:
-            json_file = open(f'public/even/{json_file_name}', 'w+')
+            files_folder = Path('public/even/')
+            json_file = open(files_folder / json_file_name, 'w+')
             json_file.write(json_string)
             json_file.close()
         else:
-            json_file = open(f'public/odd/{json_file_name}', 'w+')
+            files_folder = Path('public/odd/')
+            json_file = open(files_folder / json_file_name, 'w+')
             json_file.write(json_string)
             json_file.close()
         print(json_file_name)
@@ -37,12 +40,14 @@ def send_file():
         minute_requested = int(request.args.getlist('minute')[0])
         print(request.args.getlist('minute')[0])
         if minute_requested % 2 == 0:
-            file_path = str(random.choice(os.listdir("public/even/")))
+            files_folder = Path('public/even/')
+            file_path = str(random.choice(os.listdir(files_folder)))
             with open(f'public/even/{file_path}', 'r') as openfile:
                 json_object = json.load(openfile)
             print(file_path)
         else:
-            file_path = str(random.choice(os.listdir("public/odd/")))
+            files_folder = Path('public/odd/')
+            file_path = str(random.choice(os.listdir(files_folder)))
             with open(f'public/odd/{file_path}', 'r') as openfile:
                 json_object = json.load(openfile)
         return json_object
