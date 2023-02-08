@@ -1,0 +1,10 @@
+{"generalInfo": {
+    "type": "standard-banner", 
+    "width": "500", 
+    "height": "100", 
+    "alignment": "Left-aligned", 
+    "background-type": "Image", 
+    "background-image": "https://www.testimage.de", 
+    "interactivity": "Link to Webpage", 
+    "duration": "5000"}, 
+"elements": {"element0": {"type": "portrait", "url": "portrait.de", "width": "", "height": "", "coordinates": {"top": 49.1875, "left": 70}}, "element1": {"type": "text", "content": "Hello World", "font-size": "20px", "color": "black", "text_decoration": "none", "font-weight": "normal", "coordinates": {"top": 56.1875, "left": 356}}, "element2": {"type": "landscape", "url": "landscape.de", "width": "", "height": "", "coordinates": {"top": 53.1875, "left": 752}}}}

@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//HbbTV//1.1.1//EN" "http://www.hbbtv.org/dtd/HbbTV-1.1.1.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>HBBTV App</title>
+    <meta http-equiv="Content-Type" content="application/vnd.hbbtv.xhtml+xml; utf-8" />
+    <link rel="stylesheet" href="static/hbbtv-app.css" />
+    <script type="text/javascript" src="static/hbbtv-app-buttons.js"></script>
+    <script type="text/javascript" src="static/hbbtv-app.js"></script>
+    <script type="text/javascript" src="static/display-ad.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body onload="request_Ad()">
+    <div>
+        <object type="application/oipfApplicationManager" id="applicationManager"> </object>
+        <object type="video/broadcast" id="broadcastVideo"> </object>
+    </div>
+    <!-- we shall define a safe area for the main scene -->
+    <div class="safe_area" id="app_area">
+        <!-- title -->
+        <div class="title_text">AD Interaction</div>
+        <!-- status -->
+        <div class="status_text">choose up down left or right to open the ad link <span id="navigation_field"></span>
+        </div>
+
+        <!-- bottom legend -->
+        <div class="bottom_legend">
+            <div class="legend_cell">
+                <div class="legend_button_red"></div>
+                <span class="legend_text">Hide this scene</span>
+            </div>
+            <div class="legend_cell">
+                <div class="legend_button_green"></div>
+                <span class="legend_text" id="toggle_playback_field"></span>
+            </div>
+            <div class="legend_cell">
+                <div class="legend_button_yellow"></div>
+                <span class="legend_text" id="toggle_numeric_field"></span>
+            </div>
+            <div class="legend_cell">
+                <div class="legend_button_blue"></div>
+                <span class="legend_text">Prevent all buttons</span>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="red_button_style" id="red_button_notification_field">Press the red button on the RC to start!</div> -->
+</body>
+
+<!-- <script>
+    function request_Ad() {
+        console.log('Requesting Ad!')
+        const d = new Date();
+        let minutes = d.getMinutes();
+        console.log(d)
+        $.ajax({
+            type: 'GET',
+            contentType: 'application/json; charset=utf-8',
+            url: 'http://127.0.0.1:8000/get_ad',
+            data: { minute : minutes},
+            dataType: 'json',
+            success: function (response) {
+                console.log(response)
+            }
+        })
+        var newAd = setTimeout(request_Ad, 90000)
+    }
+</script> -->
+
+<!-- <script>
+    setInterval(load_ad, 30000)
+
+    function load_ad() {
+        var json_data = {{ json_file| tojson }};
+    var div_elem = document.createElement("div");
+    var div_elem_2 = document.createElement("div");
+    var img = document.createElement("img");
+    var img_2 = document.createElement("img");
+    var video = document.createElement("video");
+
+    console.log(json_data);
+    if (json_data['type'] == 'standard-banner') {
+        // var elem = document.getElementById("red_button_notification_field");
+        div_elem.classList.add("red_button_style");
+        div_elem.id = "red_button_notification_field";
+        div_elem.style.width = json_data["width"];
+        div_elem.style.height = json_data["height"];
+        div_elem.style.left = json_data['left'];
+        div_elem.style.top = json_data["top"];
+        div_elem.name = json_data["open_link"];
+        div_elem.innerHTML = json_data["ad_text"];
+        if (json_data["background-color"] != false) {
+            div_elem.style.backgroundColor = json_data["background-color"];
+        } else {
+            div_elem.style.backgroundImage = "url('static/background-image.jpeg')";
+        }
+        div_elem.style.fontSize = json_data["font-size"];
+        div_elem.style.textAlign = json_data["text-align"];
+        div_elem.style.lineHeight = json_data["line-height"];
+        div_elem.innerHTML = json_data["ad_text"];
+
+    } else if (json_data['type'] == 'picture') {
+        div_elem.classList.add("red_button_style");
+        div_elem.id = "red_button_notification_field";
+        div_elem.style.width = json_data["width"];
+        div_elem.style.height = json_data["height"];
+        div_elem.style.left = json_data['left'];
+        div_elem.style.top = json_data["top"];
+        div_elem.name = json_data["open_link"];
+        img.src = json_data["src"];
+        img.classList.add("red_button_style");
+        img.id = "red_button_notification_field";
+        img.style.width = json_data["width"];
+        img.style.height = json_data["height"];
+        img.style.left = json_data['left'];
+        img.style.top = json_data["top"];
+        img.name = json_data["open_link"];
+        img.style.textAlign = json_data["text-align"];
+        img.style.lineHeight = json_data["line-height"];
+    } else if (json_data['type'] == 'video') {
+        div_elem.classList.add("red_button_style");
+        div_elem.id = "red_button_notification_field";
+        div_elem.style.width = json_data["width"];
+        div_elem.style.height = json_data["height"];
+        div_elem.style.left = json_data['left'];
+        div_elem.style.top = json_data["top"];
+        div_elem.name = json_data["open_link"];
+        video.src = json_data["src"];
+        video.autoplay = true;
+        video.classList.add("red_button_style");
+        video.id = "red_button_notification_field";
+
+        video.style.width = json_data["width"];
+        video.style.height = json_data["height"];
+        video.style.left = json_data['left'];
+        video.style.top = json_data["top"];
+
+        video.name = json_data["open_link"];
+    } else if (json_data['type'] == 'l-banner') {
+        document.getElementById("broadcastVideo").style.position = json_data["position"];
+        document.getElementById("broadcastVideo").style.width = json_data["width"];
+        document.getElementById("broadcastVideo").style.height = json_data["height"];
+        document.getElementById("broadcastVideo").style.right = json_data["right"];
+        document.getElementById("broadcastVideo").style.top = json_data["top"];
+
+
+        div_elem_2.classList.add("red_button_style");
+        div_elem_2.id = "red_button_notification_field_2";
+        div_elem.style.position = json_data["position"];
+        div_elem_2.style.width = json_data["width_div_2"];
+        div_elem_2.style.height = json_data["height_div_2"];
+        div_elem_2.style.left = json_data["left_div_2"];
+        div_elem_2.style.top = json_data["top_div_2"];
+
+        div_elem.classList.add("red_button_style");
+        div_elem.id = "red_button_notification_field";
+        div_elem.style.position = json_data["position"];
+        div_elem.style.width = json_data["width_div"];
+        div_elem.style.height = json_data["height_div"];
+        div_elem.style.left = json_data['left_div'];
+        div_elem.style.bottom = json_data["bottom_div"];
+
+
+
+
+        img.style.width = json_data["width_img_1"];
+        img.style.height = json_data["height_img_1"];
+        img.src = json_data["src_1"];
+
+        img_2.style.width = json_data["width_img_2"];
+        img_2.style.height = json_data["height_img_2"];
+        img_2.src = json_data["src_2"];
+    }
+    document.body.appendChild(div_elem_2)
+    document.body.appendChild(div_elem)
+    document.getElementById("red_button_notification_field").appendChild(img);
+    document.getElementById("red_button_notification_field_2").appendChild(img_2);
+    document.getElementById("red_button_notification_field").appendChild(video);
+    start();
+    setTimeout(delete_ad, json_data["duration_in_ms"], div_elem.id);
+    setTimeout(delete_ad, json_data["duration_in_ms"], div_elem_2.id);
+    setTimeout(delete_ad, json_data["duration_in_ms"], img.id);
+    setTimeout(delete_ad, json_data["duration_in_ms"], img_2.id);
+    setTimeout(delete_ad, json_data["duration_in_ms"], video.id);
+
+    setTimeout(delete_lBanner, json_data["duration_in_ms"], "broadcastVideo");
+    }
+
+    function delete_ad(element_id) {
+        var item = document.getElementById(element_id);
+        item.remove();
+    }
+
+    function delete_lBanner(element_id) {
+        var item = document.getElementById(element_id);
+        document.getElementById(element_id).style.position = "absolut";
+        document.getElementById(element_id).style.width = "100%";
+        document.getElementById(element_id).style.height = "100%";
+        document.getElementById(element_id).style.top = "0px";
+
+    }
+</script> -->
+
+
+</html>

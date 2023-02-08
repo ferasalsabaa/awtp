@@ -2,7 +2,7 @@ from datetime import datetime
 import json
 import os
 import random
-from flask import Flask, request
+from flask import Flask, request, send_from_directory
 from flask_cors import CORS
 
 
@@ -42,16 +42,18 @@ def upload_file():
         # print(json_file)
         return 'Success'   
 
-@app.route("/get_ad/<minute>", methods=['GET'])
-def send_file(minute):
+@app.route("/get_ad", methods=['GET'])
+def send_file():
     if request.method == 'GET':
-        if minute % 2 == 0:
-            file_name = random.choice(os.listdir("public/even/"))
+        minute_requested = int(request.args.getlist('minute')[0])
+        print(request.args.getlist('minute')[0])
+        if minute_requested % 2 == 0:
+            file_path = str(random.choice(os.listdir("public/even/")))
+            print(file_path)
         else:
-            file_name = random.choice(os.listdir("public/odd/"))
-        return send_file(file_name, mimetype='application/json')
-    else:
-        return 'Wrong request'
+            file_path = str(random.choice(os.listdir("public/odd/")))
+        return send_from_directory('public/even/', file_path)
+    return 'No'
 
 if __name__ == '__main__':
     app.run(debug=True, port=8000)

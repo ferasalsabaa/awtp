@@ -4,14 +4,14 @@
         "duration": "",
         "width": "",
         "height": "",
-        "alignment": {
-            "top": "",
-            "left": ""
-            },
+        "alignment": "",
+        "top": "",
+        "left": "",
         "background-type": "",
         "background-color": "",
         "background-image": "",
-        "interactivity": ""
+        "interactivity": "link to webpage",
+        "open_link_url": ""
         },
     "elements":{
         "element_0":{
@@ -55,6 +55,6 @@
                 "top": "",
                 "left": ""
                 }
-            },
+            }
         }
     }
