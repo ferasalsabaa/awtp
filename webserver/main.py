@@ -42,13 +42,13 @@ def send_file():
         if minute_requested % 2 == 0:
             files_folder = Path('public/even/')
             file_path = str(random.choice(os.listdir(files_folder)))
-            with open(f'public/even/{file_path}', 'r') as openfile:
+            with open(files_folder / file_path, 'r') as openfile:
                 json_object = json.load(openfile)
             print(file_path)
         else:
             files_folder = Path('public/odd/')
             file_path = str(random.choice(os.listdir(files_folder)))
-            with open(f'public/odd/{file_path}', 'r') as openfile:
+            with open(files_folder / file_path, 'r') as openfile:
                 json_object = json.load(openfile)
         return json_object
     return 'No'
