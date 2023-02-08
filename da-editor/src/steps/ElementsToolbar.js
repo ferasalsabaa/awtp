@@ -16,38 +16,14 @@ export const ElementsToolbar = () => {
 		}),
 		[],
 	)
-	const [{ isDragging : isDraggingPortrait }, drag_portrait] = useDrag(
+	const [{ isDragging : isDraggingImage }, drag_image] = useDrag(
 		() => ({
-			type: ToolTypes.Portrait,
+			type: ToolTypes.Image,
 			collect: (monitor) => ({
 				isDragging: !!monitor.isDragging(),
 			}),
 			item: {
-				type: ToolTypes.Portrait,
-			}
-		}),
-		[],
-	)
-	const [{ isDragging : isDraggingLandscape }, drag_landscape] = useDrag(
-		() => ({
-			type: ToolTypes.Landscape,
-			collect: (monitor) => ({
-				isDragging: !!monitor.isDragging(),
-			}),
-			item: {
-				type: ToolTypes.Landscape,
-			}
-		}),
-		[],
-	)
-	const [{ isDragging : isDraggingSkyscraper }, drag_skyscraper] = useDrag(
-		() => ({
-			type: ToolTypes.Skyscraper,
-			collect: (monitor) => ({
-				isDragging: !!monitor.isDragging(),
-			}),
-			item: {
-				type: ToolTypes.Skyscraper,
+				type: ToolTypes.Image,
 			}
 		}),
 		[],
@@ -58,9 +34,7 @@ export const ElementsToolbar = () => {
 			<h4>Elements Toolbar</h4>
 			<div className="tools">
 				<div ref={drag_text} className={`tool-text ${isDraggingText ? 'is-dragged' : ''}`}>Text</div>
-				<div ref={drag_portrait} className={`tool-portrait ${isDraggingPortrait ? 'is-dragged' : ''}`}>Portrait-Image</div>
-				<div ref={drag_landscape} className={`tool-landscape ${isDraggingLandscape ? 'is-dragged' : ''}`}>Landscape-Image</div>
-				<div ref={drag_skyscraper} className={`tool-skyscraper ${isDraggingSkyscraper ? 'is-dragged' : ''}`}>Skyscraper-Image</div>
+				<div ref={drag_image} className={`tool-portrait ${isDraggingImage ? 'is-dragged' : ''}`}>Image</div>
 			</div>
 		</>
 	);

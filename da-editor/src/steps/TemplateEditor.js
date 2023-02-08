@@ -13,7 +13,7 @@ export const TemplateEditor = ({ template }) => {
     const input_dict = {}
 
     function sendFile(){
-        const recipeUrl = 'http://127.0.0.1:8000/upload'
+        const uploadUrl = 'http://127.0.0.1:8000/upload'
         const requestMetadata = {
             method: 'POST',
             headers: {
@@ -23,7 +23,7 @@ export const TemplateEditor = ({ template }) => {
         };
         console.log(requestMetadata.body)
 
-        fetch(recipeUrl, requestMetadata)
+        fetch(uploadUrl, requestMetadata)
         .then(res => console.log(res));
     }
 

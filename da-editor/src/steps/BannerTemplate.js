@@ -37,7 +37,7 @@ export const BannerTemplate = ({ template, elements, setElements }) => {
 
 	const [{ isOver: isOver_standard }, drop] = useDrop(
         () => ({
-            accept: [ToolTypes.Text,ToolTypes.Portrait, ToolTypes.Landscape, ToolTypes.Skyscraper],
+            accept: [ToolTypes.Text,ToolTypes.Image],
 			drop: function (item, monitor) {
                 const cursorOffset = monitor.getClientOffset()
                 const containerRect = dropZone.current?.getBoundingClientRect()
@@ -54,7 +54,7 @@ export const BannerTemplate = ({ template, elements, setElements }) => {
 	)
 	const [{ isOver : isOver_left }, drop_left] = useDrop(
         () => ({
-            accept: [ToolTypes.Text,ToolTypes.Portrait, ToolTypes.Landscape, ToolTypes.Skyscraper],
+            accept: [ToolTypes.Text,ToolTypes.Image],
 			drop: function (item, monitor) {
                 const cursorOffset = monitor.getClientOffset()
                 const containerRect = dropZone_L_Banner_Left.current?.getBoundingClientRect()
@@ -71,7 +71,7 @@ export const BannerTemplate = ({ template, elements, setElements }) => {
 	)
 	const [{ isOver: isOver_bottom }, drop_bottom] = useDrop(
         () => ({
-            accept: [ToolTypes.Text,ToolTypes.Portrait, ToolTypes.Landscape, ToolTypes.Skyscraper],
+            accept: [ToolTypes.Text,ToolTypes.Image],
 			drop: function (item, monitor) {
                 const cursorOffset = monitor.getClientOffset()
                 const containerRect = dropZone_L_Banner_Bottom.current?.getBoundingClientRect()
@@ -107,36 +107,16 @@ export const BannerTemplate = ({ template, elements, setElements }) => {
                             </div>
                             </div>
                     }
-                    else if (element.type === ToolTypes.Portrait){
+                    else if (element.type === ToolTypes.Image){
                         top_pos = element.y - 40 //substract half of div height
                         left_pos = element.x - 40 // substract half of div width
                         return <div key={index} className="banner-portrait-element" style={{top: top_pos, left: left_pos,}}>
-                            Portrait {index}
+                            Image {index}
                             <div className='remove-button-div'>
                                 <button onClick={() => removeElement(element.x)} className='remove-button'>❌</button>
                             </div>
                             </div>
-                    } 
-                    else if (element.type === ToolTypes.Landscape){
-                        top_pos = element.y - 40 //substract half of div height
-                        left_pos = element.x - 40 // substract half of div width
-                        return <div key={index} className="banner-landscape-element" style={{top: top_pos, left: left_pos,}}>
-                            Landscape {index}
-                            <div className='remove-button-div'>
-                                <button onClick={() => removeElement(element.x)} className='remove-button'>❌</button>
-                            </div>
-                            </div>
-                    } 
-                    else if (element.type === ToolTypes.Skyscraper){
-                        top_pos = element.y - 40 //substract half of div height
-                        left_pos = element.x - 40 // substract half of div width
-                        return <div key={index} className="banner-skyscraper-element" style={{top: top_pos, left: left_pos,}}>
-                            Sky {index}
-                            <div className='remove-button-div'>
-                                <button onClick={() => removeElement(element.x)} className='remove-button'>❌</button>
-                            </div>
-                            </div>
-                    } 
+                    }
                     return null;
                 })}</div>
             </>
@@ -150,22 +130,12 @@ export const BannerTemplate = ({ template, elements, setElements }) => {
                     if (element.type === ToolTypes.Text) {
                         top_pos = element.y - 20 //substract half of div height
                         left_pos = element.x - 40 // substract half of div width
-                        return <div key={index} className="banner-text-element" style={{top: top_pos, left: left_pos,}}>Text</div>
+                        return <div key={index} className="banner-text-element" style={{top: top_pos, left: left_pos,}}>Text{index}</div>
                     }
-                    else if (element.type === ToolTypes.Portrait){
+                    else if (element.type === ToolTypes.Image){
                         top_pos = element.y - 40 //substract half of div height
                         left_pos = element.x - 40 // substract half of div width
-                        return <div key={index} className="banner-portrait-element" style={{top: top_pos, left: left_pos,}}>Portrait</div>
-                    } 
-                    else if (element.type === ToolTypes.Landscape){
-                        top_pos = element.y - 40 //substract half of div height
-                        left_pos = element.x - 40 // substract half of div width
-                        return <div key={index} className="banner-landscape-element" style={{top: top_pos, left: left_pos,}}>Landscape</div>
-                    } 
-                    else if (element.type === ToolTypes.Skyscraper){
-                        top_pos = element.y - 40 //substract half of div height
-                        left_pos = element.x - 40 // substract half of div width
-                        return <div key={index} className="banner-skyscraper-element" style={{top: top_pos, left: left_pos,}}>Skyscraper</div>
+                        return <div key={index} className="banner-portrait-element" style={{top: top_pos, left: left_pos,}}>Image{index}</div>
                     } 
                     return null;
                 })}</div>
@@ -174,23 +144,13 @@ export const BannerTemplate = ({ template, elements, setElements }) => {
                     if (element.type === ToolTypes.Text) {
                         top_pos = element.y - 20 //substract half of div height
                         left_pos = element.x - 40 // substract half of div width
-                        return <div key={index} className="banner-text-element" style={{top: top_pos, left: left_pos,}}>Text</div>
+                        return <div key={index} className="banner-text-element" style={{top: top_pos, left: left_pos,}}>Text{index}</div>
                     }
                     else if (element.type === ToolTypes.Portrait){
                         top_pos = element.y - 40 //substract half of div height
                         left_pos = element.x - 40 // substract half of div width
-                        return <div key={index} className="banner-portrait-element" style={{top: top_pos, left: left_pos,}}>Portrait</div>
-                    } 
-                    else if (element.type === ToolTypes.Landscape){
-                        top_pos = element.y - 40 //substract half of div height
-                        left_pos = element.x - 40 // substract half of div width
-                        return <div key={index} className="banner-landscape-element" style={{top: top_pos, left: left_pos,}}>Landscape</div>
-                    } 
-                    else if (element.type === ToolTypes.Portrait){
-                        top_pos = element.y - 40 //substract half of div height
-                        left_pos = element.x - 40 // substract half of div width
-                        return <div key={index} className="banner-skyscraper-element" style={{top: top_pos, left: left_pos,}}>Skyscraper</div>
-                    } 
+                        return <div key={index} className="banner-portrait-element" style={{top: top_pos, left: left_pos,}}>Image{index}</div>
+                    }
                     return null;
                 })}</div>
             </>
