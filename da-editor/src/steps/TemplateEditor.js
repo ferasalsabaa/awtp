@@ -12,6 +12,12 @@ export const TemplateEditor = ({ template }) => {
     const [elements, setElements] = React.useState([]);
     const input_dict = {}
 
+    if (template === 0){
+        banner_json['banner-data']['generalInfo']['type'] = 'standard-banner';
+    } else if (template === 1){
+        banner_json['banner-data']['generalInfo']['type'] = 'l-banner';
+    } 
+
     function sendFile(){
         const uploadUrl = 'http://127.0.0.1:8000/upload'
         const requestMetadata = {
@@ -61,21 +67,23 @@ export const TemplateEditor = ({ template }) => {
         <div>
             <h2>Template Editor</h2>
             Selected template: {template}
-            <div className='editor'>
-                <DndProvider backend={HTML5Backend}>
-                <div className='tv-background'></div>
-                <div className='banner-overlay'>
-                    <BannerTemplate template={template} elements={elements} setElements={setElements} json={banner_json}/>
-                </div>
-                <div className='elements-toolbar'>
-                    <ElementsToolbar />
-                </div>
-                </DndProvider>
-            </div>
-            <div className='banner-inputs'>
+            <div className='da-editor'>
                 <div className='general-info'>
                     <GeneralInputs json={banner_json}/>
                 </div>
+                <div className='editor'>
+                    <DndProvider backend={HTML5Backend}>
+                    <div className='tv-background'></div>
+                    <div className='banner-overlay'>
+                        <BannerTemplate template={template} elements={elements} setElements={setElements} json={banner_json}/>
+                    </div>
+                    <div className='elements-toolbar'>
+                        <ElementsToolbar />
+                    </div>
+                    </DndProvider>
+                </div>
+            </div>
+            <div className='banner-inputs'>
                 <div className='individual-info'>
                     <BannerInputs elements={elements} input_dict={input_dict}/>
                 </div>

@@ -29,17 +29,6 @@ def upload_file():
             json_file.close()
         print(json_file_name)
         print('Success')
-        # if 'file' not in request.files:
-        #     flash('No File part')
-        #     return redirect(request.url)
-        # json_file = request.files['body']
-        # if json_file.filename == '':
-        #     flash('No file')
-        #     return redirect(request.url)
-        # if json_file and allowed_file(json_file.filename):
-        # filename = secure_filename(json_file.filename)
-        # json_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        # print(json_file)
         return 'Success'   
 
 @app.route("/get_ad", methods=['GET'])
