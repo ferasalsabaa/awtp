@@ -2,7 +2,7 @@
     width: 95%;
     min-height: 200px;
     position: relative;
-    background: wheat;
+    background: rgb(244, 242, 242);
     margin: auto;
     display: flex;
     flex-direction: column;

@@ -31,7 +31,7 @@ export const ElementsToolbar = () => {
 
     return (
 		<>
-			<h4>Elements Toolbar</h4>
+			<h4 style={{color: 'white'}}>Elements Toolbar</h4>
 			<div className="tools">
 				<div ref={drag_text} className={`tool-text ${isDraggingText ? 'is-dragged' : ''}`}>Text</div>
 				<div ref={drag_image} className={`tool-portrait ${isDraggingImage ? 'is-dragged' : ''}`}>Image</div>

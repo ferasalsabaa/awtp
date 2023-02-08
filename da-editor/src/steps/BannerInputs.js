@@ -16,7 +16,7 @@ export const BannerInputs = ({elements, input_dict}) => {
 
     return (
         <>
-            <h4>Fill the elements</h4>
+            <h4>Element Information</h4>
             <div className='input-fields'>{elements.map((element, index) => {
                 createDictEntry('element'+index)
                 if (element.type === ToolTypes.Text) {
