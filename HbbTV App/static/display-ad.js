@@ -268,7 +268,7 @@ function handleKeyCode(kc) {
             case VK_LEFT:
                 // left button
                 scene.lastNavigationButtonPressed = 'LEFT';
-                let ad_link_left = "json_file['open_link_url']"
+                let ad_link_left = json_file['generalInfo']['open_link_url']
                 console.log(ad_link_left);
                 window.open(ad_link_left,'_blank');
                 window.open(ad_link_left);
@@ -276,7 +276,7 @@ function handleKeyCode(kc) {
             case VK_RIGHT:
                 // right button
                 scene.lastNavigationButtonPressed = 'RIGHT';
-                let ad_link_right = "json_file['open_link_url']"
+                let ad_link_right = json_file['generalInfo']['open_link_url']
                 console.log(ad_link_right);
                 window.open(ad_link_right,'_blank');
                 window.open(ad_link_rght);
