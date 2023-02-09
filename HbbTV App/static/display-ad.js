@@ -34,20 +34,22 @@ function request_Ad() {
         // this is not an HbbTV client, catch the error.
     }
 }
-
 // Check Type of new Banner and call render function
+var json_link = "";
 function load_Ad(json_file){
     console.log(json_file);
-    console.log(json_file['generalInfo']['type']);
+    console.log(json_file['generalInfo']['link-url']);
     var banner_type = json_file['generalInfo']['type'];
     if (banner_type == 'standard-banner'){
         render_standard_banner(json_file);
     }
+    json_link = json_file['generalInfo']['link-url'];
+    console.log("xx"+json_link);
     // else if (banner_type = 'l-banner'){
     //     render_l_banner(json_file);
     // }
 }
-
+console.log(json_link);
 // render standard-banner
 function render_standard_banner(json_file){
     // Create new Div, which will be the banner
@@ -106,6 +108,7 @@ function render_standard_banner(json_file){
         div_elem.appendChild(inner_div);
     }
     document.body.appendChild(div_elem)
+    setTimeout(delete_ad, json_file['generalInfo']['duration'], div_elem.id);
 }
 // scene implementation
 var scene = {
@@ -268,15 +271,16 @@ function handleKeyCode(kc) {
             case VK_LEFT:
                 // left button
                 scene.lastNavigationButtonPressed = 'LEFT';
-                let ad_link_left = json_file['generalInfo']['open_link_url']
-                console.log(ad_link_left);
+                let ad_link_left = json_file['generalInfo']['link-url']
+                console.log("xx"+ad_link_left);
                 window.open(ad_link_left,'_blank');
                 window.open(ad_link_left);
                 break;
             case VK_RIGHT:
                 // right button
                 scene.lastNavigationButtonPressed = 'RIGHT';
-                let ad_link_right = json_file['generalInfo']['open_link_url']
+                let ad_link_right = json_file['generalInfo']['link-url']
+                console.log("ad_link_right");
                 console.log(ad_link_right);
                 window.open(ad_link_right,'_blank');
                 window.open(ad_link_rght);
@@ -315,6 +319,11 @@ function handleKeyCode(kc) {
     // we return true to prevent default action for processed keys
     return true;
 }
+
+     function delete_ad(element_id) {
+         var item = document.getElementById(element_id);
+         item.remove();
+     }
 
 // render L-Banner
 // function render_l_banner(){
