@@ -1,9 +1,8 @@
 import React from 'react';
-import { banner_json } from '../data';
 import './GeneralInputs.css';
 import { ToolTypes } from './ToolTypes';
 
-export const GeneralInputs = ({template}) => {
+export const GeneralInputs = ({template, banner_json}) => {
     const [selects, setSelects] = React.useState();
     const [selectInteractivity, setSelectInteractivity] = React.useState();
 
@@ -49,6 +48,7 @@ export const GeneralInputs = ({template}) => {
         }
         console.log(banner_json);
     }
+    
     if (template === 0){
         return (
             <div>

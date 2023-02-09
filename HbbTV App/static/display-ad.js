@@ -27,9 +27,9 @@ function load_Ad(json_file){
     if (banner_type == 'standard-banner'){
         render_standard_banner(json_file);
     }
-    // else if (banner_type = 'l-banner'){
-    //     render_l_banner(json_file);
-    // }
+    else if (banner_type = 'l-banner'){
+        render_l_banner(json_file);
+    }
 }
 
 // render standard-banner
@@ -91,139 +91,99 @@ function render_standard_banner(json_file){
         div_elem.appendChild(inner_div);
     }
     document.body.appendChild(div_elem)
+    setTimeout(delete_ad, json_file['generalInfo']['duration'], div_elem.id);
+}
+
+function moveVideo(){
+    document.getElementById("broadcastVideo").style.position = 'absolute';
+    document.getElementById("broadcastVideo").style.width = '90%';
+    document.getElementById("broadcastVideo").style.height = '90%';
+    document.getElementById("broadcastVideo").style.right = '0';
+    document.getElementById("broadcastVideo").style.top = '0';
+    document.getElementById("broadcastVideo").style.transition = '1s';
 }
 
 // render L-Banner
-// function render_l_banner(){
-//     pass
-// }
+function render_l_banner(json_file){
+    // Shrink video and move to top right corner
+    moveVideo();
+    var left_div = document.createElement('div')
+    var bottom_div = document.createElement('div')
+    
+    // Initialise left div
+    left_div.classList.add("red_button_style");
+    left_div.id = "red_button_notification_field_2";
+    left_div.style.position = 'absolute';
+    left_div.style.width = '200px';
+    left_div.style.bottom = '100px';
+    left_div.style.left = '0';
+    left_div.style.top = '0';
+    left_div.style.backgroundColor = json_file['generalInfo']['background-color']
+    
+    //Initialise bottom div
+    bottom_div.classList.add("red_button_style");
+    bottom_div.id = "red_button_notification_field";
+    bottom_div.style.position = 'absolute';
+    bottom_div.style.width = '100%';
+    bottom_div.style.height = '100px';
+    bottom_div.style.left = '0';
+    bottom_div.style.bottom = '0';
+    bottom_div.style.backgroundColor = json_file['generalInfo']['background-color']
+    
+    
+    for (var i =0; i < Object.keys(json_file['elements']).length; i++){
+        var element = json_file['elements'][Object.keys(json_file['elements'])[i]]
+        var inner_div = document.createElement('div');
+        inner_div.style.position = 'relative';
+        inner_div.style.left = String(element['coordinates']['left']) + 'px';
+        inner_div.style.top = String(element['coordinates']['top'])+'px';
+        if (element['type'] == 'text'){
+            var text_elem = document.createElement('span');
+            text_elem.style.fontSize = element['font-size'];
+            text_elem.style.color = element['color'];
+            text_elem.style.textDecoration = element['text_decoration'];
+            text_elem.style.fontWeight = element['font-weight'];
+            text_elem.style.textAlign = element['text-align'];
+            text_elem.innerHTML = element['content'];
+            inner_div.appendChild(text_elem);
+        } else if (element['type']=='image'){
+            var img_elem = document.createElement('img');
+            img_elem.src = element['url'];
+            img_elem.width = element['width'];
+            img_elem.height = element['height'];
+            img_elem.style.left = element['coordinates']['left'];
+            img_elem.style.top = element['coordinates']['top'];
+            inner_div.appendChild(img_elem);
+        }
+        if (element['area']=='left'){
+            left_div.appendChild(inner_div)
+        } else if (element['area']=='bottom'){
+            bottom_div.appendChild(inner_div)
+        }
+    }
+    document.body.appendChild(left_div)
+    document.body.appendChild(bottom_div)
+    setTimeout(function(){
+        delete_lBanner("broadcastVideo")
+    }, json_file['generalInfo']['duration'])
+}
 
-    // function load_ad() {
-    //     var json_data = {{ json_file| tojson }};
-    // var div_elem = document.createElement("div");
-    // var div_elem_2 = document.createElement("div");
-    // var img = document.createElement("img");
-    // var img_2 = document.createElement("img");
-    // var video = document.createElement("video");
+function delete_ad(element_id) {
+    var item = document.getElementById(element_id);
+    item.remove();
+}
 
-    // console.log(json_data);
-    // if (json_data['type'] == 'standard-banner') {
-    //     // var elem = document.getElementById("red_button_notification_field");
-    //     div_elem.classList.add("red_button_style");
-    //     div_elem.id = "red_button_notification_field";
-    //     div_elem.style.width = json_data["width"];
-    //     div_elem.style.height = json_data["height"];
-    //     div_elem.style.left = json_data['left'];
-    //     div_elem.style.top = json_data["top"];
-    //     div_elem.name = json_data["open_link"];
-    //     div_elem.innerHTML = json_data["ad_text"];
-    //     if (json_data["background-color"] != false) {
-    //         div_elem.style.backgroundColor = json_data["background-color"];
-    //     } else {
-    //         div_elem.style.backgroundImage = "url('static/background-image.jpeg')";
-    //     }
-    //     div_elem.style.fontSize = json_data["font-size"];
-    //     div_elem.style.textAlign = json_data["text-align"];
-    //     div_elem.style.lineHeight = json_data["line-height"];
-    //     div_elem.innerHTML = json_data["ad_text"];
+function delete_lBanner(element_id) {
+    var item = document.getElementById(element_id);
+    item.style.position = "absolute";
+    item.style.width = "100%";
+    item.style.height = "100%";
+    item.style.top = "0px";
+    item.style.transition= '1s';
+    item.style.zIndex = 1;
+    setTimeout(function(){
+        delete_ad("red_button_notification_field_2")
+        delete_ad("red_button_notification_field")
+    }, 2000)
 
-    // } else if (json_data['type'] == 'picture') {
-    //     div_elem.classList.add("red_button_style");
-    //     div_elem.id = "red_button_notification_field";
-    //     div_elem.style.width = json_data["width"];
-    //     div_elem.style.height = json_data["height"];
-    //     div_elem.style.left = json_data['left'];
-    //     div_elem.style.top = json_data["top"];
-    //     div_elem.name = json_data["open_link"];
-    //     img.src = json_data["src"];
-    //     img.classList.add("red_button_style");
-    //     img.id = "red_button_notification_field";
-    //     img.style.width = json_data["width"];
-    //     img.style.height = json_data["height"];
-    //     img.style.left = json_data['left'];
-    //     img.style.top = json_data["top"];
-    //     img.name = json_data["open_link"];
-    //     img.style.textAlign = json_data["text-align"];
-    //     img.style.lineHeight = json_data["line-height"];
-    // } else if (json_data['type'] == 'video') {
-    //     div_elem.classList.add("red_button_style");
-    //     div_elem.id = "red_button_notification_field";
-    //     div_elem.style.width = json_data["width"];
-    //     div_elem.style.height = json_data["height"];
-    //     div_elem.style.left = json_data['left'];
-    //     div_elem.style.top = json_data["top"];
-    //     div_elem.name = json_data["open_link"];
-    //     video.src = json_data["src"];
-    //     video.autoplay = true;
-    //     video.classList.add("red_button_style");
-    //     video.id = "red_button_notification_field";
-
-    //     video.style.width = json_data["width"];
-    //     video.style.height = json_data["height"];
-    //     video.style.left = json_data['left'];
-    //     video.style.top = json_data["top"];
-
-    //     video.name = json_data["open_link"];
-    // } else if (json_data['type'] == 'l-banner') {
-    //     document.getElementById("broadcastVideo").style.position = json_data["position"];
-    //     document.getElementById("broadcastVideo").style.width = json_data["width"];
-    //     document.getElementById("broadcastVideo").style.height = json_data["height"];
-    //     document.getElementById("broadcastVideo").style.right = json_data["right"];
-    //     document.getElementById("broadcastVideo").style.top = json_data["top"];
-
-
-    //     div_elem_2.classList.add("red_button_style");
-    //     div_elem_2.id = "red_button_notification_field_2";
-    //     div_elem.style.position = json_data["position"];
-    //     div_elem_2.style.width = json_data["width_div_2"];
-    //     div_elem_2.style.height = json_data["height_div_2"];
-    //     div_elem_2.style.left = json_data["left_div_2"];
-    //     div_elem_2.style.top = json_data["top_div_2"];
-
-    //     div_elem.classList.add("red_button_style");
-    //     div_elem.id = "red_button_notification_field";
-    //     div_elem.style.position = json_data["position"];
-    //     div_elem.style.width = json_data["width_div"];
-    //     div_elem.style.height = json_data["height_div"];
-    //     div_elem.style.left = json_data['left_div'];
-    //     div_elem.style.bottom = json_data["bottom_div"];
-
-
-
-
-    //     img.style.width = json_data["width_img_1"];
-    //     img.style.height = json_data["height_img_1"];
-    //     img.src = json_data["src_1"];
-
-    //     img_2.style.width = json_data["width_img_2"];
-    //     img_2.style.height = json_data["height_img_2"];
-    //     img_2.src = json_data["src_2"];
-    // }
-    // document.body.appendChild(div_elem_2)
-    // document.body.appendChild(div_elem)
-    // document.getElementById("red_button_notification_field").appendChild(img);
-    // document.getElementById("red_button_notification_field_2").appendChild(img_2);
-    // document.getElementById("red_button_notification_field").appendChild(video);
-    // start();
-    // setTimeout(delete_ad, json_data["duration_in_ms"], div_elem.id);
-    // setTimeout(delete_ad, json_data["duration_in_ms"], div_elem_2.id);
-    // setTimeout(delete_ad, json_data["duration_in_ms"], img.id);
-    // setTimeout(delete_ad, json_data["duration_in_ms"], img_2.id);
-    // setTimeout(delete_ad, json_data["duration_in_ms"], video.id);
-
-    // setTimeout(delete_lBanner, json_data["duration_in_ms"], "broadcastVideo");
-    // }
-
-    // function delete_ad(element_id) {
-    //     var item = document.getElementById(element_id);
-    //     item.remove();
-    // }
-
-    // function delete_lBanner(element_id) {
-    //     var item = document.getElementById(element_id);
-    //     document.getElementById(element_id).style.position = "absolut";
-    //     document.getElementById(element_id).style.width = "100%";
-    //     document.getElementById(element_id).style.height = "100%";
-    //     document.getElementById(element_id).style.top = "0px";
-
-    // }
+}

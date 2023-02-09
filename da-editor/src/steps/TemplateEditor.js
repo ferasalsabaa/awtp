@@ -6,13 +6,18 @@ import { BannerInputs } from './BannerInputs';
 import { GeneralInputs } from './GeneralInputs';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import { banner_json } from '../data';
 import { ToolTypes } from './ToolTypes';
 
 export const TemplateEditor = ({ template }) => {
     const [elements, setElements] = React.useState([]);
+    const banner_json = {
+        'banner-data': {
+            'generalInfo': {},
+            'elements': {},
+        }
+    }
+    console.log(elements)
     const input_dict = {}
-    const showPreview = React.useState(false)
 
     if (template === 0){
         banner_json['banner-data']['generalInfo']['type'] = 'standard-banner';
@@ -34,25 +39,7 @@ export const TemplateEditor = ({ template }) => {
         fetch(uploadUrl, requestMetadata)
         .then(res => console.log(res));
     }
-
-    // const preview = () => {
-    //     this.setState({
-    //         showPreview: !this.showPreview
-    //     })
-    // }
-
-    // if (this.showPreview){
-    //     const myStyle = {
-    //         width: banner_json['banner-data']['generalInfo']['width'],
-    //         height: banner_json['banner-data']['generalInfo']['height'],
-    //         backgroundColor : banner_json['banner-data']['generalInfo']['background-color']
-    //     }
-    //     bannerPreview = (
-    //         <div style={myStyle}>
-    //         </div>
-    //     )
-    // }
-
+    
     const createJson = () => {
         console.log(elements);
         console.log(elements.length);
@@ -83,14 +70,14 @@ export const TemplateEditor = ({ template }) => {
         console.log(banner_json)
         console.log(JSON.stringify(banner_json))
     }
-
+    
     return (
         <div>
             <h2>Template Editor</h2>
             Selected template: {template}
             <div className='da-editor'>
                 <div className='general-info'>
-                    <GeneralInputs template={template} json={banner_json}/>
+                    <GeneralInputs template={template} banner_json={banner_json}/>
                 </div>
                 <div className='editor'>
                     <DndProvider backend={HTML5Backend}>
@@ -98,7 +85,7 @@ export const TemplateEditor = ({ template }) => {
                         <img src={require('/Users/fawazbechara/Documents/Uni/Master@TU/awtp/da-editor/src/Background.png')}/>
                     </div>
                     <div className='banner-overlay'>
-                        <BannerTemplate template={template} elements={elements} setElements={setElements} json={banner_json}/>
+                        <BannerTemplate template={template} elements={elements} setElements={setElements} banner_json={banner_json}/>
                     </div>
                     <div className='elements-toolbar'>
                         <ElementsToolbar />
@@ -108,17 +95,14 @@ export const TemplateEditor = ({ template }) => {
             </div>
             <div className='banner-inputs'>
                 <div className='individual-info'>
-                    <BannerInputs template={template} elements={elements} input_dict={input_dict}/>
+                    <BannerInputs template={template} elements={elements} input_dict={input_dict} setElements={setElements} banner_json={banner_json}/>
                 </div>
                 <div class='action-buttons'>
                     <div className='submit-banner'>
                         <button className='sumbit-banner-button' onClick={createJson}>Save Banner as JSON</button>
                     </div>
                     <div className='submit-banner'>
-                        <button className='sumbit-banner-button'>Show Preview</button>
-                    </div>
-                    <div className='submit-banner'>
-                        <button className='sumbit-banner-button' onClick={sendFile(banner_json)}>Send Json File to Server</button>
+                        <button className='sumbit-banner-button' onClick={sendFile}>Send Json File to Server</button>
                     </div>
                 </div>
             </div>

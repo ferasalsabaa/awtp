@@ -61,7 +61,7 @@
 }
 
 .banner-inputs{
-    width: 70%;
+    width: 55%;
     min-height: 100px;
     position: relative;
     background: rgb(244, 242, 242);
@@ -114,4 +114,14 @@
 
 .is-dragged {
     opacity: 0.5;
+}
+
+.banner-preview-container{
+    width: 55%;
+    min-height: 200px;
+    position: relative;
+    background: rgb(244, 242, 242);
+    border: 2px solid grey;
+    border-radius: 5px;
+    margin: 10px auto;
 }
