@@ -268,7 +268,7 @@ function handleKeyCode(kc) {
             case VK_LEFT:
                 // left button
                 scene.lastNavigationButtonPressed = 'LEFT';
-                let ad_link_left = json_file['open_link_url']
+                let ad_link_left = "json_file['open_link_url']"
                 console.log(ad_link_left);
                 window.open(ad_link_left,'_blank');
                 window.open(ad_link_left);
@@ -276,26 +276,18 @@ function handleKeyCode(kc) {
             case VK_RIGHT:
                 // right button
                 scene.lastNavigationButtonPressed = 'RIGHT';
-                let ad_link_right = json_file['open_link_url']
+                let ad_link_right = "json_file['open_link_url']"
                 console.log(ad_link_right);
                 window.open(ad_link_right,'_blank');
                 window.open(ad_link_rght);
                 break;
             case VK_DOWN:
                 // down button
-                scene.lastNavigationButtonPressed = 'DOWN';
-                let ad_link_down = json_file['open_link_url']
-                console.log(ad_link_down);
-                window.open(ad_link_down,'_blank');
-                window.open(ad_link_down);
+                scene.lastNavigationButtonPressed = 'Saturn, Media markt und Kaufland';
                 break;
             case VK_UP:
                 // up button
-                scene.lastNavigationButtonPressed = 'UP';
-                let ad_link_up = json_file['open_link_url']
-                console.log(ad_link_up);
-                window.open(ad_link_up,'_blank');
-                window.open(ad_link_up);
+                scene.lastNavigationButtonPressed = 'Saturn, Media markt und Kaufland';
                 break;
             case VK_ENTER:
                 // OK/ENTER button
@@ -308,70 +300,6 @@ function handleKeyCode(kc) {
                 console.log(ad_link);
                 window.open(ad_link,'_blank');
                 window.open(ad_link);
-                break;
-            case VK_PLAY:
-                // PLAY button
-                scene.lastPlaybackButtonPressed = 'PLAY';
-                break;
-            case VK_PAUSE:
-                // PAUSE button
-                scene.lastPlaybackButtonPressed = 'PAUSE';
-                break;
-            case VK_PLAY_PAUSE:
-                // PLAY / PAUSE button
-                scene.lastPlaybackButtonPressed = 'PLAY / PAUSE';
-                break;
-            case VK_STOP:
-                // STOP button
-                scene.lastPlaybackButtonPressed = 'STOP';
-                break;
-            case VK_FAST_FWD:
-                // FFWD button
-                scene.lastPlaybackButtonPressed = 'FFWD';
-                break;
-            case VK_REWIND:
-                // RWD button
-                scene.lastPlaybackButtonPressed = 'RWD';
-                break;
-            case VK_0:
-                // 0 numeric button
-                scene.lastNumericButtonPressed = '0';
-                break;
-            case VK_1:
-                // 1 numeric button
-                scene.lastNumericButtonPressed = '1';
-                break;
-            case VK_2:
-                // 2 numeric button
-                scene.lastNumericButtonPressed = '2';
-                break;
-            case VK_3:
-                // 3 numeric button
-                scene.lastNumericButtonPressed = '3';
-                break;
-            case VK_4:
-                // 4 numeric button
-                scene.lastNumericButtonPressed = '4';
-                break;
-            case VK_5:
-                // 5 numeric button
-                scene.lastNumericButtonPressed = '5';
-                break;
-            case VK_6:
-                // 6 numeric button
-                scene.lastNumericButtonPressed = '6';
-                break;
-            case VK_7:
-                // 7 numeric button
-                scene.lastNumericButtonPressed = '7';
-                break;
-            case VK_8:
-                // 8 numeric button
-                scene.lastNumericButtonPressed = '8';
-                break;
-            case VK_9:
-                // 9 numeric button
-                scene.lastNumericButtonPressed = '9';
                 break;
             default:
                 // pressed unhandled key
