@@ -105,7 +105,7 @@ export const BannerTemplate = ({ template, elements, setElements }) => {
                     else if (element.type === ToolTypes.Image){
                         top_pos = element.y - 40 //substract half of div height
                         left_pos = element.x - 40 // substract half of div width
-                        return <div key={index} className="banner-portrait-element" style={{top: top_pos, left: left_pos,}}>
+                        return <div key={index} className="banner-image-element" style={{top: top_pos, left: left_pos,}}>
                             Image {index}
                             <div className='remove-button-div'>
                                 <button onClick={() => removeElement(element.x)} className='remove-button'>❌</button>
@@ -125,12 +125,22 @@ export const BannerTemplate = ({ template, elements, setElements }) => {
                     if (element.type === ToolTypes.Text) {
                         top_pos = element.y - 20 //substract half of div height
                         left_pos = element.x - 40 // substract half of div width
-                        return <div key={index} className="banner-text-element" style={{top: top_pos, left: left_pos,}}>Text{index}</div>
+                        return <div key={index} className="banner-text-element" style={{top: top_pos, left: left_pos,}}>
+                            Text{index}
+                            <div className='remove-button-div'>
+                                <button onClick={() => removeElement(element.x)} className='remove-button'>❌</button>
+                            </div>
+                            </div>
                     }
                     else if (element.type === ToolTypes.Image){
                         top_pos = element.y - 40 //substract half of div height
                         left_pos = element.x - 40 // substract half of div width
-                        return <div key={index} className="banner-portrait-element" style={{top: top_pos, left: left_pos,}}>Image{index}</div>
+                        return <div key={index} className="banner-image-element" style={{top: top_pos, left: left_pos,}}>
+                            Image{index}
+                            <div className='remove-button-div'>
+                                <button onClick={() => removeElement(element.x)} className='remove-button'>❌</button>
+                            </div>
+                            </div>
                     } 
                     return null;
                 })}</div>
@@ -139,12 +149,22 @@ export const BannerTemplate = ({ template, elements, setElements }) => {
                     if (element.type === ToolTypes.Text) {
                         top_pos = element.y - 20 //substract half of div height
                         left_pos = element.x - 40 // substract half of div width
-                        return <div key={index} className="banner-text-element" style={{top: top_pos, left: left_pos,}}>Text{index}</div>
+                        return <div key={index} className="banner-text-element" style={{top: top_pos, left: left_pos,}}>
+                            Text{index}
+                            <div className='remove-button-div'>
+                                <button onClick={() => removeElement(element.x)} className='remove-button'>❌</button>
+                            </div>
+                            </div>
                     }
-                    else if (element.type === ToolTypes.Portrait){
+                    else if (element.type === ToolTypes.Image){
                         top_pos = element.y - 40 //substract half of div height
                         left_pos = element.x - 40 // substract half of div width
-                        return <div key={index} className="banner-portrait-element" style={{top: top_pos, left: left_pos,}}>Image{index}</div>
+                        return <div key={index} className="banner-image-element" style={{top: top_pos, left: left_pos,}}>
+                            Image{index}
+                            <div className='remove-button-div'>
+                                <button onClick={() => removeElement(element.x)} className='remove-button'>❌</button>
+                            </div>
+                            </div>
                     }
                     return null;
                 })}</div>

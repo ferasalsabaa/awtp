@@ -1,0 +1,36 @@
+.template-select-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.select-buttons{
+    display: flex;
+    flex-direction: row;
+}
+
+.template-select{
+}
+
+.fill-div{
+    width: 200px;
+    height: 200px;
+    margin-right: 20px;
+    background-color: #707e9a;
+    color: white;
+    font-size: 20px;
+    display: block;
+    /* height: 100%;
+    width: 100%; */
+    text-decoration: none;
+}
+
+.fill-div:hover{
+    cursor: pointer;
+    background-color: #282c34;
+    transition: 0.3s;
+}
+
+.fill-div:active{
+    border-style: outset;
+}

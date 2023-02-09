@@ -65,16 +65,17 @@ function render_standard_banner(json_file){
 
     // Set up inner elements of Banner
     for (var i=0; i < Object.keys(json_file['elements']).length; i++ ){
-        var inner_div = document.createElement('div');
         var element = json_file['elements'][Object.keys(json_file['elements'])[i]]
+        var inner_div = document.createElement('div');
+        inner_div.style.position = 'relative';
+        inner_div.style.left = String(element['coordinates']['left']) + 'px';
+        inner_div.style.top = String(element['coordinates']['top'])+'px';
         if (element['type'] == 'text'){
             var text_elem = document.createElement('span');
             text_elem.style.fontSize = element['font-size'];
             text_elem.style.color = element['color'];
             text_elem.style.textDecoration = element['text_decoration'];
             text_elem.style.fontWeight = element['font-weight'];
-            text_elem.style.left = element['coordinates']['left'];
-            text_elem.style.top = element['coordinates']['top'];
             text_elem.style.textAlign = element['text-align'];
             text_elem.innerHTML = element['content'];
             inner_div.appendChild(text_elem);

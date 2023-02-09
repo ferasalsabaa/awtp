@@ -7,10 +7,12 @@ import { GeneralInputs } from './GeneralInputs';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { banner_json } from '../data';
+import { ToolTypes } from './ToolTypes';
 
 export const TemplateEditor = ({ template }) => {
     const [elements, setElements] = React.useState([]);
     const input_dict = {}
+    const showPreview = React.useState(false)
 
     if (template === 0){
         banner_json['banner-data']['generalInfo']['type'] = 'standard-banner';
@@ -18,14 +20,14 @@ export const TemplateEditor = ({ template }) => {
         banner_json['banner-data']['generalInfo']['type'] = 'l-banner';
     } 
 
-    function sendFile(){
+    const sendFile = (json) => {
         const uploadUrl = 'http://127.0.0.1:8000/upload'
         const requestMetadata = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(banner_json['banner-data'])
+            body: JSON.stringify(json['banner-data'])
         };
         console.log(requestMetadata.body)
 
@@ -33,8 +35,25 @@ export const TemplateEditor = ({ template }) => {
         .then(res => console.log(res));
     }
 
+    // const preview = () => {
+    //     this.setState({
+    //         showPreview: !this.showPreview
+    //     })
+    // }
+
+    // if (this.showPreview){
+    //     const myStyle = {
+    //         width: banner_json['banner-data']['generalInfo']['width'],
+    //         height: banner_json['banner-data']['generalInfo']['height'],
+    //         backgroundColor : banner_json['banner-data']['generalInfo']['background-color']
+    //     }
+    //     bannerPreview = (
+    //         <div style={myStyle}>
+    //         </div>
+    //     )
+    // }
+
     const createJson = () => {
-        banner_json['elements'] = {};
         console.log(elements);
         console.log(elements.length);
         console.log(input_dict);
@@ -54,13 +73,15 @@ export const TemplateEditor = ({ template }) => {
                 banner_json['banner-data']["elements"]['element'+i]['width'] = input_dict['element'+i]['width'];
                 banner_json['banner-data']["elements"]['element'+i]['height'] = input_dict['element'+i]['height'];
             } 
+            if (template === 1){
+                banner_json['banner-data']["elements"]['element'+i]['area'] = input_dict['element'+i]['area']
+            }
             banner_json['banner-data']["elements"]['element'+i]['coordinates'] = {};
             banner_json['banner-data']["elements"]['element'+i]['coordinates']['top'] = elements[i].y
             banner_json['banner-data']["elements"]['element'+i]['coordinates']['left'] = elements[i].x
         }
         console.log(banner_json)
         console.log(JSON.stringify(banner_json))
-        sendFile()
     }
 
     return (
@@ -69,11 +90,13 @@ export const TemplateEditor = ({ template }) => {
             Selected template: {template}
             <div className='da-editor'>
                 <div className='general-info'>
-                    <GeneralInputs json={banner_json}/>
+                    <GeneralInputs template={template} json={banner_json}/>
                 </div>
                 <div className='editor'>
                     <DndProvider backend={HTML5Backend}>
-                    <div className='tv-background'></div>
+                    <div className='tv-background'>
+                        <img src={require('/Users/fawazbechara/Documents/Uni/Master@TU/awtp/da-editor/src/Background.png')}/>
+                    </div>
                     <div className='banner-overlay'>
                         <BannerTemplate template={template} elements={elements} setElements={setElements} json={banner_json}/>
                     </div>
@@ -85,10 +108,18 @@ export const TemplateEditor = ({ template }) => {
             </div>
             <div className='banner-inputs'>
                 <div className='individual-info'>
-                    <BannerInputs elements={elements} input_dict={input_dict}/>
+                    <BannerInputs template={template} elements={elements} input_dict={input_dict}/>
                 </div>
-                <div className='submit-banner'>
-                    <button className='sumbit-banner-button' onClick={createJson}>Save Banner Instance as JSON</button>
+                <div class='action-buttons'>
+                    <div className='submit-banner'>
+                        <button className='sumbit-banner-button' onClick={createJson}>Save Banner as JSON</button>
+                    </div>
+                    <div className='submit-banner'>
+                        <button className='sumbit-banner-button'>Show Preview</button>
+                    </div>
+                    <div className='submit-banner'>
+                        <button className='sumbit-banner-button' onClick={sendFile(banner_json)}>Send Json File to Server</button>
+                    </div>
                 </div>
             </div>
         </div>
