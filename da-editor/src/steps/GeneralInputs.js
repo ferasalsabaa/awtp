@@ -1,9 +1,8 @@
 import React from 'react';
-import { banner_json } from '../data';
 import './GeneralInputs.css';
 import { ToolTypes } from './ToolTypes';
 
-export const GeneralInputs = ({}) => {
+export const GeneralInputs = ({template, banner_json}) => {
     const [selects, setSelects] = React.useState();
     const [selectInteractivity, setSelectInteractivity] = React.useState();
 
@@ -49,51 +48,85 @@ export const GeneralInputs = ({}) => {
         }
         console.log(banner_json);
     }
-
-    return (
-        <div>
-            <h4>General Information</h4>
-            <div className='general-info-inputs'>
-                <div className='label-input'>
-                    <label htmlFor="input-banner-width">Width:</label>
-                    <input type="text" id="input-banner-width" onChange={e => changeJson("width", e.target.value)}/>
-                </div>
-                <div className='label-input'>
-                    <label htmlFor="input-bg-color">Height:</label>
-                    <input type="text" id="input-banner-height" onChange={e => changeJson("height", e.target.value)}/>
-                </div>
-                <div className='label-input'>
-                <label htmlFor="input-alignment">Alignment:</label>
-                    <select id='input-alignment' onChange={e => changeJson("alignment", e.target.value)}>
-                        <option>Centered</option>
-                        <option>Left-aligned</option>
-                        <option>Right-aligned</option>
-                    </select>
-                </div>
-                <div className='label-input'>
-                    <label htmlFor="input-select-bg">Background:</label>
-                    <select id='input-select-bg' value={selects} onChange={e => {setSelects(e.target.value); changeJson("background-type", e.target.value)}}>
-                        <option></option>
-                        <option>Color</option>
-                        <option>Image</option>
-                    </select>
-                </div>
-                {renderBackgroundInput(selects)}
-                <div className='label-input'>
-                    <label htmlFor="input-interactivity">Interactivity:</label>
-                    <select type="text" id="input-interactivity"  value={selectInteractivity} onChange={e => {setSelectInteractivity(e.target.value); changeJson("interactivity", e.target.value)}}>
-                        <option></option>
-                        <option>Link to Webpage</option>
-                        <option>Quiz</option>
-                        <option>Survey</option>
-                    </select>
-                </div>
-                {renderInteractivity(selectInteractivity)}
-                <div className='label-input'>
-                    <label htmlFor="input-duration">Duration:</label>
-                    <input type="text" id="input-duration" onChange={e => changeJson("duration", e.target.value)}/>
+    
+    if (template === 0){
+        return (
+            <div>
+                <h4>General Information</h4>
+                <div className='general-info-inputs'>
+                    <div className='label-input'>
+                        <label htmlFor="input-banner-width">Width:</label>
+                        <input type="text" id="input-banner-width" onChange={e => changeJson("width", e.target.value)}/>
+                    </div>
+                    <div className='label-input'>
+                        <label htmlFor="input-bg-color">Height:</label>
+                        <input type="text" id="input-banner-height" onChange={e => changeJson("height", e.target.value)}/>
+                    </div>
+                    <div className='label-input'>
+                    <label htmlFor="input-alignment">Alignment:</label>
+                        <select id='input-alignment' onChange={e => changeJson("alignment", e.target.value)}>
+                            <option>Centered</option>
+                            <option>Left-aligned</option>
+                            <option>Right-aligned</option>
+                        </select>
+                    </div>
+                    <div className='label-input'>
+                        <label htmlFor="input-select-bg">Background:</label>
+                        <select id='input-select-bg' value={selects} onChange={e => {setSelects(e.target.value); changeJson("background-type", e.target.value)}}>
+                            <option></option>
+                            <option>Color</option>
+                            <option>Image</option>
+                        </select>
+                    </div>
+                    {renderBackgroundInput(selects)}
+                    <div className='label-input'>
+                        <label htmlFor="input-interactivity">Interactivity:</label>
+                        <select type="text" id="input-interactivity"  value={selectInteractivity} onChange={e => {setSelectInteractivity(e.target.value); changeJson("interactivity", e.target.value)}}>
+                            <option></option>
+                            <option>Link to Webpage</option>
+                            <option>Quiz</option>
+                            <option>Survey</option>
+                        </select>
+                    </div>
+                    {renderInteractivity(selectInteractivity)}
+                    <div className='label-input'>
+                        <label htmlFor="input-duration">Duration:</label>
+                        <input type="text" id="input-duration" onChange={e => changeJson("duration", e.target.value)}/>
+                    </div>
                 </div>
             </div>
-        </div>
-    );
+        );
+    }
+    if (template === 1){
+        return(
+            <div>
+                <h4>General Information</h4>
+                <div className='general-info-inputs'>
+                    <div className='label-input'>
+                        <label htmlFor="input-select-bg">Background:</label>
+                        <select id='input-select-bg' value={selects} onChange={e => {setSelects(e.target.value); changeJson("background-type", e.target.value)}}>
+                            <option></option>
+                            <option>Color</option>
+                            <option>Image</option>
+                        </select>
+                    </div>
+                    {renderBackgroundInput(selects)}
+                    <div className='label-input'>
+                        <label htmlFor="input-interactivity">Interactivity:</label>
+                        <select type="text" id="input-interactivity"  value={selectInteractivity} onChange={e => {setSelectInteractivity(e.target.value); changeJson("interactivity", e.target.value)}}>
+                            <option></option>
+                            <option>Link to Webpage</option>
+                            <option>Quiz</option>
+                            <option>Survey</option>
+                        </select>
+                    </div>
+                    {renderInteractivity(selectInteractivity)}
+                    <div className='label-input'>
+                        <label htmlFor="input-duration">Duration:</label>
+                        <input type="text" id="input-duration" onChange={e => changeJson("duration", e.target.value)}/>
+                    </div>
+                </div>
+            </div>
+        )
+    }
 }

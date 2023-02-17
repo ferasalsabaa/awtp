@@ -15,7 +15,7 @@
         },
     "elements":{
         "element_0":{
-            "type": "portrait",
+            "type": "image",
             "url": "",
             "width": "", 
             "height": "",
@@ -37,25 +37,5 @@
                 "left": ""
                 }
             },
-        "element_2":{
-            "type": "landscape",
-            "url": "",
-            "width": "", 
-            "height": "", 
-            "coordinates":{
-                "top": "",
-                "left": ""
-                }
-            },
-        "element_3":{
-            "type": "skyscraper",
-            "url": "",
-            "width": "", 
-            "height": "", 
-            "coordinates":{
-                "top": "",
-                "left": ""
-                }
-            }
         }
     }

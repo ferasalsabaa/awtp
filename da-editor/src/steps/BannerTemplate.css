@@ -1,10 +1,10 @@
 .banner-standard {
     position: absolute;
-    left: 250px;
-    right: 250px;
+    left: 200px;
+    right: 200px;
     bottom: 30px;
     height: 100px;
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(107, 123, 156, 0.5);
     border: 1px solid black;
     overflow: hidden;
 }
@@ -13,9 +13,9 @@
     position: absolute;
     left: 0;
     top: 0;
-    bottom: 0; 
+    bottom: 100px; 
     width: 200px;
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(107, 123, 156, 0.5);
     border: 1px solid black;
     overflow-x: visible;
     overflow-y: hidden;
@@ -23,11 +23,11 @@
 
 .banner-L-bottom{
     position: absolute;
-    left: 200px;
+    left: 0;
     right: 0;
     bottom: 0;
     height: 100px;
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(107, 123, 156, 0.5);
     border: 1px solid black;
     border-left: none;
     overflow-x: visible;
@@ -57,7 +57,7 @@
 }
 
 .is-over {
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(107, 123, 156, 0.8);
 }
 
 .banner-text-element {
@@ -65,12 +65,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100px;
-    height: 30px;
+    width: 150px;
+    height: 40px;
     border: 1px solid black;
 }
 
-.banner-portrait-element {
+.banner-image-element {
     position: absolute;
     display: flex;
     justify-content: center;
@@ -78,24 +78,4 @@
     width: 70px;
     height: 70px;
     border: 1px solid black;
-}
-
-.banner-landscape-element {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 70px;
-    border: 1px solid black;
-    aspect-ratio: 16 / 9;
-}
-
-.banner-skyscraper-element {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 50px;
-    border: 1px solid black;
-    aspect-ratio: 9 / 16;
 }
