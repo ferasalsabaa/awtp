@@ -51,18 +51,7 @@ function render_standard_banner(json_file){
         div_elem.style.left = json_file['generalInfo']['alignment']['left'];
     }
     div_elem.style.top = json_file['generalInfo']['alignment']["top"];
-
-    var interactivity = json_file['generalInfo']['interactivity'];
-    if (interactivity == 'Link to Webpage'){
-        div_elem.name = json_file['generalInfo']["open_link_url"];
-    }
-    
-    if (json_file['generalInfo']['background-type'] == 'Color'){
-        div_elem.style.backgroundColor = json_file['generalInfo']["background-color"];
-    }
-    else if (json_file['generalInfo']['background-type'] == 'Image') {
-        div_elem.style.backgroundImage = json_file[generalInfo]["background-image"];
-    }
+    div_elem.style.backgroundColor = json_file['generalInfo']["background-color"];
 
     // Set up inner elements of Banner
     for (var i=0; i < Object.keys(json_file['elements']).length; i++ ){
@@ -253,7 +242,8 @@ var scene = {
         rcUtils.setKeyset(this.appObject, rcUtils.MASK_CONSTANT_RED);
     },
     render: function() {
-        var navigationField = document.getElementById('navigation_field');
+        var shopField = document.getElementById('shop_field');
+        var codeField = document.getElementById('code_field');
         var playbackField = document.getElementById('playback_field');
         var togglePlaybackField = document.getElementById('toggle_playback_field');
         var numericField = document.getElementById('numeric_field');
@@ -261,10 +251,13 @@ var scene = {
         var preventField = document.getElementById('prevent_field');
         // do navigation buttons
         if (this.lastNavigationButtonPressed === null) {
-            navigationField.innerHTML =
+            shopField.innerHTML =
                 '';
-        } else {
-            navigationField.innerHTML = this.lastNavigationButtonPressed;
+            
+        } else if (this.lastNavigationButtonPressed === 'DOWN'){
+            shopField.innerHTML = scene.resp['generalInfo']['coop-shops'];
+        } else if (this.lastNavigationButtonPressed === 'UP') {
+            codeField.innerHTML = scene.resp['generalInfo']['promo-code']
         }
         // do playback buttons
         if (this.shouldReactToPlaybackButtons) {
@@ -379,11 +372,11 @@ function handleKeyCode(kc) {
                 break;
             case VK_DOWN:
                 // down button
-                scene.lastNavigationButtonPressed = 'Saturn, Media markt und Kaufland';
+                scene.lastNavigationButtonPressed = 'DOWN';
                 break;
             case VK_UP:
                 // up button
-                scene.lastNavigationButtonPressed = 'Saturn, Media markt und Kaufland';
+                scene.lastNavigationButtonPressed = 'UP';
                 break;
             case VK_ENTER:
                 // OK/ENTER button

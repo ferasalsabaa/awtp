@@ -6,17 +6,6 @@ export const GeneralInputs = ({template, banner_json}) => {
     const [selects, setSelects] = React.useState();
     const [selectInteractivity, setSelectInteractivity] = React.useState();
 
-    const renderInteractivity = (selects) => {
-        if (selects === "Link to Webpage") {
-            return <div className='label-input'>
-                <label htmlFor="input-interactivity-link-url">URL:</label>
-                <input type="text" id="input-interactivity-link-url" onChange={e => changeJson("link-url", e.target.value)}/>
-                </div>
-        } else {
-            changeJson("link-url", "")
-        }
-    }
-
     const renderBackgroundInput = (selects) => {
         if (selects === "Color") {
             return <div className='label-input'>
@@ -70,25 +59,19 @@ export const GeneralInputs = ({template, banner_json}) => {
                             <option>Right-aligned</option>
                         </select>
                     </div>
+                    {renderBackgroundInput('Color')}
                     <div className='label-input'>
-                        <label htmlFor="input-select-bg">Background:</label>
-                        <select id='input-select-bg' value={selects} onChange={e => {setSelects(e.target.value); changeJson("background-type", e.target.value)}}>
-                            <option></option>
-                            <option>Color</option>
-                            <option>Image</option>
-                        </select>
+                        <label htmlFor="input-bg-link-url">Link:</label>
+                        <input type="text" id="input-banner-link-url" onChange={e => changeJson("link-url", e.target.value)}/>
                     </div>
-                    {renderBackgroundInput(selects)}
                     <div className='label-input'>
-                        <label htmlFor="input-interactivity">Interactivity:</label>
-                        <select type="text" id="input-interactivity"  value={selectInteractivity} onChange={e => {setSelectInteractivity(e.target.value); changeJson("interactivity", e.target.value)}}>
-                            <option></option>
-                            <option>Link to Webpage</option>
-                            <option>Quiz</option>
-                            <option>Survey</option>
-                        </select>
+                        <label htmlFor="input-bg-coop-shops">Shops:</label>
+                        <input type="text" id="input-banner-coop-shops" onChange={e => changeJson("coop-shops", e.target.value)}/>
                     </div>
-                    {renderInteractivity(selectInteractivity)}
+                    <div className='label-input'>
+                        <label htmlFor="input-bg-promo-code">PromoCode:</label>
+                        <input type="text" id="input-banner-promo-code" onChange={e => changeJson("promo-code", e.target.value)}/>
+                    </div>
                     <div className='label-input'>
                         <label htmlFor="input-duration">Duration:</label>
                         <input type="text" id="input-duration" onChange={e => changeJson("duration", e.target.value)}/>
@@ -102,25 +85,19 @@ export const GeneralInputs = ({template, banner_json}) => {
             <div>
                 <h4>General Information</h4>
                 <div className='general-info-inputs'>
+                    {renderBackgroundInput('Color')}
                     <div className='label-input'>
-                        <label htmlFor="input-select-bg">Background:</label>
-                        <select id='input-select-bg' value={selects} onChange={e => {setSelects(e.target.value); changeJson("background-type", e.target.value)}}>
-                            <option></option>
-                            <option>Color</option>
-                            <option>Image</option>
-                        </select>
+                        <label htmlFor="input-bg-link-url">Link:</label>
+                        <input type="text" id="input-banner-link-url" onChange={e => changeJson("link-url", e.target.value)}/>
                     </div>
-                    {renderBackgroundInput(selects)}
                     <div className='label-input'>
-                        <label htmlFor="input-interactivity">Interactivity:</label>
-                        <select type="text" id="input-interactivity"  value={selectInteractivity} onChange={e => {setSelectInteractivity(e.target.value); changeJson("interactivity", e.target.value)}}>
-                            <option></option>
-                            <option>Link to Webpage</option>
-                            <option>Quiz</option>
-                            <option>Survey</option>
-                        </select>
+                        <label htmlFor="input-bg-coop-shops">Shops:</label>
+                        <input type="text" id="input-banner-coop-shops" onChange={e => changeJson("coop-shops", e.target.value)}/>
                     </div>
-                    {renderInteractivity(selectInteractivity)}
+                    <div className='label-input'>
+                        <label htmlFor="input-bg-promo-code">PromoCode:</label>
+                        <input type="text" id="input-banner-promo-code" onChange={e => changeJson("promo-code", e.target.value)}/>
+                    </div>
                     <div className='label-input'>
                         <label htmlFor="input-duration">Duration:</label>
                         <input type="text" id="input-duration" onChange={e => changeJson("duration", e.target.value)}/>

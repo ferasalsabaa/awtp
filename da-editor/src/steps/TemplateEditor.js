@@ -7,15 +7,10 @@ import { GeneralInputs } from './GeneralInputs';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { ToolTypes } from './ToolTypes';
+import { banner_json } from '../data';
 
 export const TemplateEditor = ({ template }) => {
     const [elements, setElements] = React.useState([]);
-    const banner_json = {
-        'banner-data': {
-            'generalInfo': {},
-            'elements': {},
-        }
-    }
     console.log(elements)
     const input_dict = {}
 
@@ -25,14 +20,14 @@ export const TemplateEditor = ({ template }) => {
         banner_json['banner-data']['generalInfo']['type'] = 'l-banner';
     } 
 
-    const sendFile = (json) => {
+    const sendFile = () => {
         const uploadUrl = 'http://127.0.0.1:8000/upload'
         const requestMetadata = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(json['banner-data'])
+            body: JSON.stringify(banner_json['banner-data'])
         };
         console.log(requestMetadata.body)
 
@@ -41,19 +36,19 @@ export const TemplateEditor = ({ template }) => {
     }
     
     const createJson = () => {
-        console.log(elements);
-        console.log(elements.length);
-        console.log(input_dict);
+        console.log("Elements: ", elements);
+        console.log("Length of Elements", elements.length);
+        console.log("Input Dict", input_dict);
         for (var i=0; i < elements.length; i++){
             banner_json['banner-data']['elements']['element'+i] = {};
             if (elements[i].type == 'text'){
                 banner_json['banner-data']["elements"]['element'+i]['type'] = elements[i].type;
-                banner_json['banner-data']["elements"]['element'+i]['content'] = input_dict['element'+i]['content'];
-                banner_json['banner-data']["elements"]['element'+i]['font-size'] = input_dict['element'+i]['font-size'];
-                banner_json['banner-data']["elements"]['element'+i]['color'] = input_dict['element'+i]['color'];
-                banner_json['banner-data']["elements"]['element'+i]['text_decoration'] = input_dict['element'+i]['text-decoration'];
-                banner_json['banner-data']["elements"]['element'+i]['font-weight'] = input_dict['element'+i]['font-weight'];
-                banner_json['banner-data']["elements"]['element'+i]['text-align'] = input_dict['element'+i]['text-align'];
+                banner_json['banner-data']["elements"]['element'+i]['content'] = elements[i].content;
+                banner_json['banner-data']["elements"]['element'+i]['font-size'] = elements[i].font_size;
+                banner_json['banner-data']["elements"]['element'+i]['color'] = elements[i].color;
+                banner_json['banner-data']["elements"]['element'+i]['text_decoration'] = elements[i].text_decoration;
+                banner_json['banner-data']["elements"]['element'+i]['font-weight'] = elements[i].font_weight;
+                banner_json['banner-data']["elements"]['element'+i]['text-align'] = elements[i].text_align;
             } else {
                 banner_json['banner-data']["elements"]['element'+i]['type'] = elements[i].type;
                 banner_json['banner-data']["elements"]['element'+i]['url'] = input_dict['element'+i]['image-url'];
@@ -85,7 +80,7 @@ export const TemplateEditor = ({ template }) => {
                         <img src={require('/Users/fawazbechara/Documents/Uni/Master@TU/awtp/da-editor/src/Background.png')}/>
                     </div>
                     <div className='banner-overlay'>
-                        <BannerTemplate template={template} elements={elements} setElements={setElements} banner_json={banner_json}/>
+                        <BannerTemplate template={template} elements={elements} setElements={setElements}/>
                     </div>
                     <div className='elements-toolbar'>
                         <ElementsToolbar />
@@ -95,7 +90,7 @@ export const TemplateEditor = ({ template }) => {
             </div>
             <div className='banner-inputs'>
                 <div className='individual-info'>
-                    <BannerInputs template={template} elements={elements} input_dict={input_dict} setElements={setElements} banner_json={banner_json}/>
+                    <BannerInputs template={template} elements={elements} input_dict={input_dict} setElements={setElements}/>
                 </div>
                 <div class='action-buttons'>
                     <div className='submit-banner'>

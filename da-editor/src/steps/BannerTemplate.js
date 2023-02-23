@@ -3,6 +3,7 @@ import './BannerTemplate.css';
 import { useDrop, useDragDropManager } from 'react-dnd'
 import { ToolTypes } from './ToolTypes';
 import { mergeRefs } from "react-merge-refs";
+import { banner_json } from '../data';
 
 export const BannerTemplate = ({ template, elements, setElements, banner_json}) => {
     console.log(elements)
@@ -104,12 +105,9 @@ export const BannerTemplate = ({ template, elements, setElements, banner_json}) 
     const isOver = isOver_bottom || isOver_left || isOver_standard
 
     if (template === 0) {
-        var banner_width = banner_json['banner-data']['generalInfo']['width']
-        console.log(banner_width)
-        var banner_height = banner_json['banner-data']['generalInfo']['height']
         return (
             <>
-                <div ref={mergeRefs([drop, dropZone_standard])} className={`banner-standard ${isOver ? 'is-over' : ''}`} style={{width: banner_width, height: banner_height}}>{elements.map((element, index) => {
+                <div ref={mergeRefs([drop, dropZone_standard])} className={`banner-standard ${isOver ? 'is-over' : ''}`}>{elements.map((element, index) => {
                     // define new variables that are saving the middle of the div
                     var top_pos, left_pos
                     if (element.type === ToolTypes.Text) {
@@ -147,7 +145,7 @@ export const BannerTemplate = ({ template, elements, setElements, banner_json}) 
                         top_pos = element.y - 20 //substract half of div height
                         left_pos = element.x - 40 // substract half of div width
                         return <div key={index} className="banner-text-element" style={{top: top_pos, left: left_pos,}}>
-                            {element.content} {index}
+                            {element.content}
                             <div className='remove-button-div'>
                                 <button onClick={() => removeElement(element.x)} className='remove-button'>❌</button>
                             </div>
@@ -171,7 +169,7 @@ export const BannerTemplate = ({ template, elements, setElements, banner_json}) 
                         top_pos = element.y - 20 //substract half of div height
                         left_pos = element.x - 40 // substract half of div width
                         return <div key={index} className="banner-text-element" style={{top: top_pos, left: left_pos,}}>
-                            {element.content}{index}
+                            {element.content}
                             <div className='remove-button-div'>
                                 <button onClick={() => removeElement(element.x)} className='remove-button'>❌</button>
                             </div>
