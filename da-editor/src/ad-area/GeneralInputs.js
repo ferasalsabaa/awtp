@@ -3,26 +3,16 @@ import React from 'react';
 import '../template-area/GeneralTemplateInputs.css';
 
 export const GeneralInputs = ({ template, setAdJSON }) => {
+    const [backgroundType, setBackgroundType] = React.useState()
     const changeJson = (type, data) => {
         const newJSON = {...template};
         newJSON['generalInfo'][type] = data;
         setAdJSON(newJSON)
     }
 
-    const renderBackgroundInput = () => {
-        const selectValue = document.getElementById("input-background")
-        if (selectValue.value === "Color") {
-            return <div className='label-input'>
-                <label htmlFor="input-bg-color">Color:</label>
-                <input type="text" id="input-bg-color" value={template.generalInfo['background-color'] ?? ''} onChange={e => changeJson("background-color", e.target.value)}/>
-                </div>
-        }
-        else if (selectValue.value === "Image") {
-            return <div className='label-input'>
-                <label htmlFor="input-bg-image">URL:</label>
-                <input type="text" id="input-bg-image" value={template.generalInfo['background-image'] ?? ''} onChange={e => changeJson("background-image", e.target.value)}/>
-                </div>
-        }
+    const setBackground = (selectValue) => {
+        console.log(selectValue)
+        setBackgroundType(selectValue)
     }
     
     if (template.generalInfo.type === 'l-banner'){
@@ -47,13 +37,25 @@ export const GeneralInputs = ({ template, setAdJSON }) => {
                         </select>
                     </div>
                     <div className='label-input'>
-                        <label htmlFor='input-background'>Background-Type:</label>
-                        <select id='input-background' onChange={e => renderBackgroundInput(e.target.value)}>
+                        <label htmlFor='input-bg-type'>Background-Type:</label>
+                        <select id='input-bg-type' onChange={e => {setBackground(e.target.value); changeJson('background-type', e.target.value)}}>
+                            <option>---</option>
                             <option value="Color">Color</option>
                             <option value="Image">Image</option>
                         </select>
                     </div>
-                    {/* {renderBackgroundInput('Color')} */}
+                    {backgroundType === 'Color' && (
+                        <div className='label-input'>
+                        <label htmlFor="input-bg-color">Color:</label>
+                        <input type="text" id="input-bg-color" value={template.generalInfo['background-color'] ?? ''} onChange={e => changeJson("background-color", e.target.value)}/>
+                        </div>
+                    )}
+                    {backgroundType === 'Image' && (
+                        <div className='label-input'>
+                        <label htmlFor="input-bg-image">URL:</label>
+                        <input type="text" id="input-bg-image" value={template.generalInfo['background-image'] ?? ''} onChange={e => changeJson("background-image", e.target.value)}/>
+                        </div>
+                    )}
                     <div className='label-input'>
                         <label htmlFor="input-bg-promo-code">PromoCode:</label>
                         <input type="text" id="input-banner-promo-code" value={template.generalInfo['promo-code'] ?? ''} onChange={e => changeJson("promo-code", e.target.value)}/>
@@ -72,13 +74,25 @@ export const GeneralInputs = ({ template, setAdJSON }) => {
                 <h4>General Information</h4>
                 <div className='general-info-inputs'>
                 <div className='label-input'>
-                        <label htmlFor='input-background'>Background-Type:</label>
-                        <select id='input-background' onChange={renderBackgroundInput}>
+                        <label htmlFor='input-bg-type'>Background-Type:</label>
+                        <select id='input-bg-type' onChange={e => {setBackground(e.target.value); changeJson('background-type', e.target.value)}}>
+                            <option>---</option>
                             <option value="Color">Color</option>
                             <option value="Image">Image</option>
                         </select>
                     </div>
-                    {/* {renderBackgroundInput()} */}
+                    {backgroundType === 'Color' && (
+                        <div className='label-input'>
+                        <label htmlFor="input-bg-color">Color:</label>
+                        <input type="text" id="input-bg-color" value={template.generalInfo['background-color'] ?? ''} onChange={e => changeJson("background-color", e.target.value)}/>
+                        </div>
+                    )}
+                    {backgroundType === 'Image' && (
+                        <div className='label-input'>
+                        <label htmlFor="input-bg-image">URL:</label>
+                        <input type="text" id="input-bg-image" value={template.generalInfo['background-image'] ?? ''} onChange={e => changeJson("background-image", e.target.value)}/>
+                        </div>
+                    )}
                     <div className='label-input'>
                         <label htmlFor="input-bg-promo-code">PromoCode:</label>
                         <input type="text" id="input-banner-promo-code" value={template.generalInfo['promo-code'] ?? ''} onChange={e => changeJson("promo-code", e.target.value)}/>
