@@ -3,10 +3,8 @@ import './BannerTemplate.css';
 import { useDrop, useDragDropManager } from 'react-dnd'
 import { ToolTypes } from './ToolTypes';
 import { mergeRefs } from "react-merge-refs";
-import { banner_json } from '../data';
 
-export const BannerTemplate = ({ template, elements, setElements, banner_json}) => {
-    console.log(elements)
+export const BannerTemplate = ({ template, elements, setElements}) => {
     const dragDropManager = useDragDropManager();
     const monitor = dragDropManager.getMonitor();
     const dropZone_standard = React.useRef();
@@ -14,6 +12,7 @@ export const BannerTemplate = ({ template, elements, setElements, banner_json}) 
     const dropZone_L_Banner_Bottom = React.useRef();
 
     const addElement = (type, coordinates, area) => {
+        // TODO: Add check for x + width not out of bounds (same with y + height)
         if (type == "text"){
             const newElement = {
                 type,
@@ -103,11 +102,24 @@ export const BannerTemplate = ({ template, elements, setElements, banner_json}) 
 	)
 
     const isOver = isOver_bottom || isOver_left || isOver_standard
+    const width = template?.['generalInfo']?.['width'] || '60%';
+    const height = template?.['generalInfo']?.['height'] || '100px';
+    const alignment = template?.['generalInfo']?.['alignment'] || 'center';
+    const backgroundColor = template?.['generalInfo']?.['background-color'] || 'rgba(107, 123, 156, 0.5)';
+    
+    const alignmentStyles = alignment === 'center' ? {
+        left: "50%",
+        transform: "translateX(-50%)",
+    } : alignment === 'left' ? {
+        left: "10%",
+    } : alignment === 'right' ? {
+        right: "10%",
+    } : {};
 
-    if (template === 0) {
+    if (template.generalInfo.type === 'standard-banner') {
         return (
             <>
-                <div ref={mergeRefs([drop, dropZone_standard])} className={`banner-standard ${isOver ? 'is-over' : ''}`}>{elements.map((element, index) => {
+                <div ref={mergeRefs([drop, dropZone_standard])} className={`banner-standard ${isOver ? 'is-over' : ''}`}  style={{width, height, backgroundColor, ...alignmentStyles}}>{elements.map((element, index) => {
                     // define new variables that are saving the middle of the div
                     var top_pos, left_pos
                     if (element.type === ToolTypes.Text) {
@@ -123,9 +135,9 @@ export const BannerTemplate = ({ template, elements, setElements, banner_json}) 
                     else if (element.type === ToolTypes.Image){
                         top_pos = element.y - 40 //substract half of div height
                         left_pos = element.x - 40 // substract half of div width
-                        return <div key={index} className="banner-image-element" style={{top: top_pos, left: left_pos,}}>
+                        return <div key={index} className="banner-image-element" style={{top: top_pos, left: left_pos, width: element.width || '70px', height: element.height || '70px'}}>
                             Image {index}
-                            {/* <img src={require(element.url)} width={element.width} height={element.height}/> */}
+                            <img src={element.url}/>
                             <div className='remove-button-div'>
                                 <button onClick={() => removeElement(element.x)} className='remove-button'>❌</button>
                             </div>
@@ -136,10 +148,10 @@ export const BannerTemplate = ({ template, elements, setElements, banner_json}) 
             </>
         );
     }
-    if (template === 1) {
+    if (template.generalInfo.type === 'l-banner') {
         return (
             <>
-                <div ref={mergeRefs([drop_left, dropZone_L_Banner_Left])} className={`banner-L-left ${isOver ? 'is-over' : ''}`}>{elements.filter((element) => element.area === 'left').map((element, index) => {
+                <div ref={mergeRefs([drop_left, dropZone_L_Banner_Left])} className={`banner-L-left ${isOver ? 'is-over' : ''}`} style={{width, backgroundColor, bottom: height}}>{elements.filter((element) => element.area === 'left').map((element, index) => {
                     var top_pos, left_pos
                     if (element.type === ToolTypes.Text) {
                         top_pos = element.y - 20 //substract half of div height
@@ -154,8 +166,8 @@ export const BannerTemplate = ({ template, elements, setElements, banner_json}) 
                     else if (element.type === ToolTypes.Image){
                         top_pos = element.y - 40 //substract half of div height
                         left_pos = element.x - 40 // substract half of div width
-                        return <div key={index} className="banner-image-element" style={{top: top_pos, left: left_pos,}}>
-                            <img src={require(element.url)} width={element.width} height={element.height}/>
+                        return <div key={index} className="banner-image-element" style={{top: top_pos, left: left_pos, width: element.width || '70px', height: element.height || '70px'}}>
+                            <img src={element.url}/>
                             <div className='remove-button-div'>
                                 <button onClick={() => removeElement(element.x)} className='remove-button'>❌</button>
                             </div>
@@ -163,7 +175,7 @@ export const BannerTemplate = ({ template, elements, setElements, banner_json}) 
                     } 
                     return null;
                 })}</div>
-                <div ref={mergeRefs([drop_bottom, dropZone_L_Banner_Bottom])} className={`banner-L-bottom ${isOver ? 'is-over' : ''}`}>{elements.filter((element) => element.area === 'bottom').map((element, index) => {
+                <div ref={mergeRefs([drop_bottom, dropZone_L_Banner_Bottom])} className={`banner-L-bottom ${isOver ? 'is-over' : ''}`} style={{height, backgroundColor}}>{elements.filter((element) => element.area === 'bottom').map((element, index) => {
                     var top_pos, left_pos
                     if (element.type === ToolTypes.Text) {
                         top_pos = element.y - 20 //substract half of div height

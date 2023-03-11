@@ -7,7 +7,7 @@ function request_Ad() {
     $.ajax({
         type: 'GET',
         contentType: 'application/json; charset=utf-8',
-        url: 'http://127.0.0.1:8000/get_ad',
+        url: 'http://127.0.0.1:8000/ads/random',
         responseType:'application/json',
         data: { minute : minutes},
         dataType: 'json',
@@ -140,8 +140,11 @@ function render_l_banner(json_file){
         } else if (element['type']=='image'){
             var img_elem = document.createElement('img');
             img_elem.src = element['url'];
-            img_elem.width = element['width'];
-            img_elem.height = element['height'];
+            img_elem.style.width = '100%';
+            img_elem.style.height = '100%';
+            img_elem.style['object-fit'] = 'cover';
+            inner_div.style.width = element['width'];
+            inner_div.style.height = element['height'];
             img_elem.style.left = element['coordinates']['left'];
             img_elem.style.top = element['coordinates']['top'];
             inner_div.appendChild(img_elem);

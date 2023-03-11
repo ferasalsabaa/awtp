@@ -1,0 +1,73 @@
+.banner-standard {
+    position: absolute;
+    bottom: 30px;
+    max-height: 50%;
+    min-height: 50px;
+    max-width: 95%;
+    min-width: 50px;
+    background: rgba(107, 123, 156, 0.5);
+    border: 1px solid black;
+    overflow: hidden;
+    transition: width 200ms ease, height 200ms ease;
+}
+
+.banner-L-left{
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 100px; 
+    width: 200px;
+    background: rgba(107, 123, 156, 0.5);
+    border: 1px solid black;
+    overflow-x: visible;
+    overflow-y: hidden;
+}
+
+.banner-L-bottom{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100px;
+    background: rgba(107, 123, 156, 0.5);
+    border: 1px solid black;
+    border-bottom: 0;
+    overflow-x: visible;
+    overflow-y: hidden;
+}
+
+
+.template-editor, .editor {
+    height: 500px;
+    width: 90%;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    margin-top: 1rem;
+}
+
+.template-editor .tv-background, .editor .tv-background {
+    position: absolute;
+    background: rgb(244, 242, 242);
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    aspect-ratio: 16/9;
+}
+
+.template-editor .tv-background img, .editor .tv-background img {
+    width: calc(100% - 6px);
+    height: calc(100% - 6px);
+    object-fit: cover;
+    border: 3px solid black;
+}
+
+.template-editor .banner-overlay, .editor .banner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    aspect-ratio: 16/9;
+}

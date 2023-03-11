@@ -1,21 +1,21 @@
 import React from 'react';
 import './App.css';
-import { TemplateSelector } from './steps/TemplateSelector';
-import { TemplateEditor } from './steps/TemplateEditor';
+import { MainMenu } from './MainMenu';
+import { TemplateArea } from './template-area/TemplateArea';
+import { AdArea } from './ad-area/AdArea';
 
 function App() {
-  const [currentStep, setCurrentStep] = React.useState(0);
-  const [template, setTemplate] = React.useState();
-  const selectTemplate = (templateIndex) => {
-    setTemplate(templateIndex);
-    setCurrentStep(1);
-  }
+  const [appArea, setAppArea] = React.useState(undefined); // 0 -> Template, 1 -> Ads
+  
   const renderCurrentStep = () => {
-    if (currentStep === 0) {
-      return <TemplateSelector onSelect={selectTemplate} />
+    if (appArea === undefined) {
+      return <MainMenu onSelect={setAppArea} />
     }
-    if (currentStep === 1) {
-      return <TemplateEditor template={template} />
+    if (appArea === 0) {
+      return <TemplateArea />
+    }
+    if (appArea === 1) {
+      return <AdArea />
     }
   }
   return (
@@ -23,7 +23,9 @@ function App() {
       <header className="App-header">
         Display-Ad Editor
       </header>
-      {renderCurrentStep()}
+      <div className="App-body">
+        {renderCurrentStep()}
+      </div>
     </div>
   );
 }
