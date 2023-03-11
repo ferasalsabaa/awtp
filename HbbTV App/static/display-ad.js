@@ -45,13 +45,21 @@ function render_standard_banner(json_file){
     // Set up general Styling of Banner
     div_elem.style.width = json_file['generalInfo']["width"];
     div_elem.style.height = json_file['generalInfo']["height"];
-    if (json_file['generalInfo']['alignment'] == 'Right-aligned'){
-        div_elem.style.right = json_file['generalInfo']['alignment']['right'];
+    if (json_file['generalInfo']['alignment'] == 'right'){
+        div_elem.style.right = '10%';
+    } else if (json_file['generalInfo']['alignment'] == 'left'){
+        div_elem.style.left = '10%';
     } else {
-        div_elem.style.left = json_file['generalInfo']['alignment']['left'];
+        div_elem.style.left = '50%';
+        div_elem.style.transform = 'translateX(-50%)'
     }
-    div_elem.style.top = json_file['generalInfo']['alignment']["top"];
-    div_elem.style.backgroundColor = json_file['generalInfo']["background-color"];
+    div_elem.style.bottom = '30px';
+    if (json_file['generalInfo']['background-type']=='Color'){
+        div_elem.style.backgroundColor = json_file['generalInfo']["background-color"];
+    } else if (json_file['generalInfo']['background-type']=='Image'){
+        div_elem.style.backgroundImage = 'url(' + json_file['generalInfo']['background-image'] + ')'
+        div_elem.style.backgroundSize = 'cover'
+    }
 
     // Set up inner elements of Banner
     for (var i=0; i < Object.keys(json_file['elements']).length; i++ ){
@@ -85,10 +93,11 @@ function render_standard_banner(json_file){
     setTimeout(delete_ad, json_file['generalInfo']['duration'], div_elem.id);
 }
 
-function moveVideo(){
+function moveVideo(json_file){
     document.getElementById("broadcastVideo").style.position = 'absolute';
-    document.getElementById("broadcastVideo").style.width = '90%';
-    document.getElementById("broadcastVideo").style.height = '90%';
+    document.getElementById("broadcastVideo").style.width = `calc(100%-${json_file["generalInfo"]["width"]}}`;
+    console.log(`calc(100%-${json_file["generalInfo"]["width"]}}`)
+    document.getElementById("broadcastVideo").style.height = `calc(100%-${json_file["generalInfo"]["height"]}}`;
     document.getElementById("broadcastVideo").style.right = '0';
     document.getElementById("broadcastVideo").style.top = '0';
     document.getElementById("broadcastVideo").style.transition = '1s';
@@ -97,7 +106,7 @@ function moveVideo(){
 // render L-Banner
 function render_l_banner(json_file){
     // Shrink video and move to top right corner
-    moveVideo();
+    moveVideo(json_file);
     var left_div = document.createElement('div')
     var bottom_div = document.createElement('div')
     
@@ -105,7 +114,7 @@ function render_l_banner(json_file){
     left_div.classList.add("red_button_style");
     left_div.id = "red_button_notification_field_2";
     left_div.style.position = 'absolute';
-    left_div.style.width = '200px';
+    left_div.style.width = json_file['generalInfo']['width'];
     left_div.style.bottom = '100px';
     left_div.style.left = '0';
     left_div.style.top = '0';
@@ -116,7 +125,7 @@ function render_l_banner(json_file){
     bottom_div.id = "red_button_notification_field";
     bottom_div.style.position = 'absolute';
     bottom_div.style.width = '100%';
-    bottom_div.style.height = '100px';
+    bottom_div.style.height = json_file['generalInfo']['height'];
     bottom_div.style.left = '0';
     bottom_div.style.bottom = '0';
     bottom_div.style.backgroundColor = json_file['generalInfo']['background-color']

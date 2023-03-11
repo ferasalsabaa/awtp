@@ -5,6 +5,7 @@ import '../template-area/GeneralTemplateInputs.css';
 export const GeneralInputs = ({ template, setAdJSON }) => {
     const [backgroundType, setBackgroundType] = React.useState()
     const changeJson = (type, data) => {
+        console.log(type, data)
         const newJSON = {...template};
         newJSON['generalInfo'][type] = data;
         setAdJSON(newJSON)
