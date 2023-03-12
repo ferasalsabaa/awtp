@@ -72,8 +72,11 @@ export const BannerTemplate = ({ template, elements, setElements}) => {
 			drop: function (item, monitor) {
                 const cursorOffset = monitor.getClientOffset()
                 const containerRect = dropZone_L_Banner_Left.current?.getBoundingClientRect()
+                console.log(containerRect)
                 const containerOffset = { x: containerRect.left, y: containerRect.top }
+                console.log(containerOffset)
                 const position = { x: cursorOffset.x - containerOffset.x, y: cursorOffset.y - containerOffset.y }
+                console.log(position)
                 addElement(item.type, position, 'left')
              },
 			collect: (monitor) => ({

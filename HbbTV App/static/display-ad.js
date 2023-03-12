@@ -17,7 +17,7 @@ function request_Ad() {
             scene.resp = response
         }
     })
-    var newAd = setTimeout(request_Ad, 300000)
+    // var newAd = setTimeout(request_Ad, 5000)
 }
 
 // Check Type of new Banner and call render function
@@ -60,6 +60,7 @@ function render_standard_banner(json_file){
         div_elem.style.backgroundImage = 'url(' + json_file['generalInfo']['background-image'] + ')'
         div_elem.style.backgroundSize = 'cover'
     }
+    div_elem.style.zIndex = '1';
 
     // Set up inner elements of Banner
     for (var i=0; i < Object.keys(json_file['elements']).length; i++ ){
@@ -90,17 +91,17 @@ function render_standard_banner(json_file){
     }
     document.body.appendChild(div_elem)
     start();
-    setTimeout(delete_ad, json_file['generalInfo']['duration'], div_elem.id);
+    setTimeout(() => {delete_ad(div_elem.id); setTimeout(request_Ad, 20000)}, json_file['generalInfo']['duration']);
+    // setTimeout(request_Ad, 2000)
 }
 
 function moveVideo(json_file){
     document.getElementById("broadcastVideo").style.position = 'absolute';
-    document.getElementById("broadcastVideo").style.width = `calc(100%-${json_file["generalInfo"]["width"]}}`;
-    console.log(`calc(100%-${json_file["generalInfo"]["width"]}}`)
-    document.getElementById("broadcastVideo").style.height = `calc(100%-${json_file["generalInfo"]["height"]}}`;
+    document.getElementById("broadcastVideo").style.width = `calc(100% - ${json_file["generalInfo"]["width"]})`;
+    document.getElementById("broadcastVideo").style.height = `calc(100% - ${json_file["generalInfo"]["height"]})`;
     document.getElementById("broadcastVideo").style.right = '0';
     document.getElementById("broadcastVideo").style.top = '0';
-    document.getElementById("broadcastVideo").style.transition = '1s';
+    document.getElementById("broadcastVideo").style.transition = 'all 1s';
 }
 
 // render L-Banner
@@ -115,10 +116,16 @@ function render_l_banner(json_file){
     left_div.id = "red_button_notification_field_2";
     left_div.style.position = 'absolute';
     left_div.style.width = json_file['generalInfo']['width'];
-    left_div.style.bottom = '100px';
+    left_div.style.bottom = json_file['generalInfo']['height'];
     left_div.style.left = '0';
     left_div.style.top = '0';
-    left_div.style.backgroundColor = json_file['generalInfo']['background-color']
+    left_div.style.zIndex = '-1';
+    if (json_file['generalInfo']['background-type-left']=='Color'){
+        left_div.style.backgroundColor = json_file['generalInfo']["background-color-left"];
+    } else if (json_file['generalInfo']['background-type-left']=='Image'){
+        left_div.style.backgroundImage = 'url(' + json_file['generalInfo']['background-image-left'] + ')'
+        left_div.style.backgroundSize = 'cover'
+    }
     
     //Initialise bottom div
     bottom_div.classList.add("red_button_style");
@@ -128,7 +135,13 @@ function render_l_banner(json_file){
     bottom_div.style.height = json_file['generalInfo']['height'];
     bottom_div.style.left = '0';
     bottom_div.style.bottom = '0';
-    bottom_div.style.backgroundColor = json_file['generalInfo']['background-color']
+    bottom_div.style.zIndex = '-1';
+    if (json_file['generalInfo']['background-type-bottom']=='Color'){
+        bottom_div.style.backgroundColor = json_file['generalInfo']["background-color-bottom"];
+    } else if (json_file['generalInfo']['background-type-bottom']=='Image'){
+        bottom_div.style.backgroundImage = 'url(' + json_file['generalInfo']['background-image-bottom'] + ')'
+        bottom_div.style.backgroundSize = 'cover'
+    }
     
     
     for (var i =0; i < Object.keys(json_file['elements']).length; i++){
@@ -183,11 +196,11 @@ function delete_lBanner(element_id) {
     item.style.width = "100%";
     item.style.height = "100%";
     item.style.top = "0px";
-    item.style.transition= '1s';
-    item.style.zIndex = 1;
+    item.style.transition= 'all 1s';
     setTimeout(function(){
         delete_ad("red_button_notification_field_2")
         delete_ad("red_button_notification_field")
+        setTimeout(request_Ad, 20000)
     }, 2000)
 }
 
