@@ -106,15 +106,34 @@ export const BannerTemplate = ({ template, elements, setElements}) => {
     const height = template?.['generalInfo']?.['height'] || '100px';
     const alignment = template?.['generalInfo']?.['alignment'] || 'center';
     const backgroundType = template?.['generalInfo']?.['background-type'] || null;
-    console.log(backgroundType)
+    const backgroundTypeLeft = template?.['generalInfo']?.['background-type-left'] || null;
+    const backgroundTypeBottom = template?.['generalInfo']?.['background-type-bottom'] || null;
     // const backgroundColor = template?.['generalInfo']?.['background-color'] || 'rgba(107, 123, 156, 0.5)';
     const backgroundImage = template?.['generalInfo']?.['background-image'] || null;
-    console.log(backgroundImage)
 
+   
     const backgroundStyles = backgroundType === 'Color' ? {
-        backgroundColor: template?.['generalInfo']?.['background-color'],
-    } : backgroundType === 'Image' ? {
-        backgroundImage: 'url(' + template?.['generalInfo']?.['background-image'] + ')' || null,
+            backgroundColor: template?.['generalInfo']?.['background-color'],
+        } : backgroundType === 'Image' ? {
+            backgroundImage: 'url(' + template?.['generalInfo']?.['background-image'] + ')' || null,
+            backgroundSize: 'cover'
+        } : {
+            backgroundColor: 'rgba(107, 123, 156, 0.5)',
+        }
+
+    const backgroundStylesLeft = backgroundTypeLeft === 'Color' ? {
+        backgroundColor: template?.['generalInfo']?.['background-color-left'] || '',
+    } : backgroundTypeLeft === 'Image' ? {
+        backgroundImage: 'url(' + template?.['generalInfo']?.['background-image-left'] + ')' || null,
+        backgroundSize: 'inherit'
+    } : {
+        backgroundColor: 'rgba(107, 123, 156, 0.5)',
+    }
+    
+    const backgroundStylesBottom = backgroundTypeBottom === 'Color' ? {
+        backgroundColor: template?.['generalInfo']?.['background-color-bottom'] || '',
+    } : backgroundTypeBottom === 'Image' ? {
+        backgroundImage: 'url(' + template?.['generalInfo']?.['background-image-bottom'] + ')' || null,
         backgroundSize: 'cover'
     } : {
         backgroundColor: 'rgba(107, 123, 156, 0.5)',
@@ -163,12 +182,12 @@ export const BannerTemplate = ({ template, elements, setElements}) => {
     if (template.generalInfo.type === 'l-banner') {
         return (
             <>
-                <div ref={mergeRefs([drop_left, dropZone_L_Banner_Left])} className={`banner-L-left ${isOver ? 'is-over' : ''}`} style={{width, ...backgroundStyles, bottom: height}}>{elements.filter((element) => element.area === 'left').map((element, index) => {
+                <div ref={mergeRefs([drop_left, dropZone_L_Banner_Left])} className={`banner-L-left ${isOver ? 'is-over' : ''}`} style={{width, ...backgroundStylesLeft, bottom: height}}>{elements.filter((element) => element.area === 'left').map((element, index) => {
                     var top_pos, left_pos
                     if (element.type === ToolTypes.Text) {
                         top_pos = element.y - 20 //substract half of div height
                         left_pos = element.x - 40 // substract half of div width
-                        return <div key={index} className="banner-text-element" style={{top: top_pos, left: left_pos,}}>
+                        return <div key={index} className="banner-text-element" style={{top: top_pos, left: left_pos, fontSize: element.font_size, textDecoration: element.text_decoration, color: element.color, fontWeight: element.font_weight, textAlign: element.text_align}}>
                             {element.content}
                             <div className='remove-button-div'>
                                 <button onClick={() => removeElement(element.x)} className='remove-button'>❌</button>
@@ -187,12 +206,12 @@ export const BannerTemplate = ({ template, elements, setElements}) => {
                     } 
                     return null;
                 })}</div>
-                <div ref={mergeRefs([drop_bottom, dropZone_L_Banner_Bottom])} className={`banner-L-bottom ${isOver ? 'is-over' : ''}`} style={{height, ...backgroundStyles}}>{elements.filter((element) => element.area === 'bottom').map((element, index) => {
+                <div ref={mergeRefs([drop_bottom, dropZone_L_Banner_Bottom])} className={`banner-L-bottom ${isOver ? 'is-over' : ''}`} style={{height, ...backgroundStylesBottom}}>{elements.filter((element) => element.area === 'bottom').map((element, index) => {
                     var top_pos, left_pos
                     if (element.type === ToolTypes.Text) {
                         top_pos = element.y - 20 //substract half of div height
                         left_pos = element.x - 40 // substract half of div width
-                        return <div key={index} className="banner-text-element" style={{top: top_pos, left: left_pos,}}>
+                        return <div key={index} className="banner-text-element" style={{top: top_pos, left: left_pos, fontSize: element.font_size, textDecoration: element.text_decoration, color: element.color, fontWeight: element.font_weight, textAlign: element.text_align}}>
                             {element.content}
                             <div className='remove-button-div'>
                                 <button onClick={() => removeElement(element.x)} className='remove-button'>❌</button>

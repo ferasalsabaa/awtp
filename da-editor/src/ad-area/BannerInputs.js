@@ -5,8 +5,9 @@ import { ToolTypes } from './ToolTypes';
 
 export const BannerInputs = ({template, elements, dict, setElements}) => {
     const changeElem = (attr, elem, elemValue) => {
+        console.log("Element: ", elem)
         const new_elem = elements.map(e => {
-            if (e.x === elem.x){
+            if (e.x === elem.x && e.y === elem.y){
                 if(elem.type === 'text'){
                     if(attr === 'content'){
                         return {...e, content: elemValue}
@@ -109,11 +110,11 @@ export const BannerInputs = ({template, elements, dict, setElements}) => {
                             </div>
                             <div className='banner-label-input'>
                                 <label htmlFor="image_input_width">Width:</label>
-                                <input type="text" id="image_input_width" onChange={e => {changeElem('width' ,element, e.target.value)}}/>
+                                <input type="text" id="image_input_width" onChange={e => {changeElem('width', element, e.target.value)}}/>
                             </div>
                             <div className='banner-label-input'>
                                 <label htmlFor="image_input_height">Height:</label>
-                                <input type="text" id="image_input_height" onChange={e => {changeElem('height' ,element, e.target.value)}}/>
+                                <input type="text" id="image_input_height" onChange={e => {changeElem('height', element, e.target.value)}}/>
                             </div>
                         </div>
                     }
@@ -131,11 +132,11 @@ export const BannerInputs = ({template, elements, dict, setElements}) => {
                         return <div key={index} className="banner-element-input">
                             <div className='banner-label-input'>
                                 <label htmlFor="text_input_content">Text {index}:</label>
-                                <input type="text" id="text_input_content" onChange={e => {changeElem('content' ,element, e.target.value)}}/>
+                                <input type="text" id="text_input_content" onChange={e => {changeElem('content', element, e.target.value)}}/>
                             </div>
                             <div className='banner-label-input'>
                                 <label htmlFor="text_input">Font Size:</label>
-                                <select id='text_input_font_size' onChange={e => {changeElem('font-size' ,element, e.target.value)}}>
+                                <select id='text_input_font_size' onChange={e => {changeElem('font-size', element, e.target.value)}}>
                                     <option></option>
                                     <option>14px</option>
                                     <option>16px</option>
