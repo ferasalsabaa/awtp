@@ -1,4 +1,9 @@
-// Request Ad from Webserver, will be repeated every 5 mins
+// load first ad after 15 seconds
+function wait_before_requesting_first_ad(){
+    setTimeout(request_Ad, 15000)
+}
+
+// request ad from webserver
 function request_Ad() {
     console.log('Requesting Ad!')
     const d = new Date();
@@ -13,22 +18,17 @@ function request_Ad() {
         dataType: 'json',
         success: function (response) {
             console.log(response)
-            load_Ad(response)
+            call_render(response)
             scene.resp = response
         }
     })
-    // var newAd = setTimeout(request_Ad, 5000)
 }
 
-// Check Type of new Banner and call render function
-function load_Ad(json_file){
-    console.log(json_file);
-    console.log(json_file['generalInfo']['type']);
-    var banner_type = json_file['generalInfo']['type'];
-    if (banner_type == 'standard-banner'){
+// check type of new banner and call render function
+function call_render(json_file){
+    if (json_file['generalInfo']['type'] == 'standard-banner'){
         render_standard_banner(json_file);
-    }
-    else if (banner_type = 'l-banner'){
+    } else if (json_file['generalInfo']['type'] = 'l-banner'){
         render_l_banner(json_file);
     }
 }
@@ -90,11 +90,15 @@ function render_standard_banner(json_file){
         div_elem.appendChild(inner_div);
     }
     document.body.appendChild(div_elem)
-    start();
+
+    // Start function makes interaction with banner possible
+    start(json_file['generalInfo']['promo-code']);
+
+    // delete banner from DOM after specific duration and request new ad after 20sec
     setTimeout(() => {delete_ad(div_elem.id); setTimeout(request_Ad, 20000)}, json_file['generalInfo']['duration']);
-    // setTimeout(request_Ad, 2000)
 }
 
+// shrink video to the top right corner
 function moveVideo(json_file){
     document.getElementById("broadcastVideo").style.position = 'absolute';
     document.getElementById("broadcastVideo").style.width = `calc(100% - ${json_file["generalInfo"]["width"]})`;
@@ -179,17 +183,19 @@ function render_l_banner(json_file){
     }
     document.body.appendChild(left_div)
     document.body.appendChild(bottom_div)
-    start();
+    start(json_file['generalInfo']['promo-code']);
     setTimeout(function(){
         delete_lBanner("broadcastVideo")
     }, json_file['generalInfo']['duration'])
 }
 
+// delete banner from DOM
 function delete_ad(element_id) {
     var item = document.getElementById(element_id);
     item.remove();
 }
 
+// grow video back to full size and then delete l-banner from DOM
 function delete_lBanner(element_id) {
     var item = document.getElementById(element_id);
     item.style.position = "absolute";
@@ -197,6 +203,7 @@ function delete_lBanner(element_id) {
     item.style.height = "100%";
     item.style.top = "0px";
     item.style.transition= 'all 1s';
+    // delete l-banner from DOM and request new ad after 20secs
     setTimeout(function(){
         delete_ad("red_button_notification_field_2")
         delete_ad("red_button_notification_field")

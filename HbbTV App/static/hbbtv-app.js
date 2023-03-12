@@ -280,7 +280,7 @@ function handleKeyCode(kc) {
 }
 
 // app entry function
-function start() {
+function start(promo_code) {
     try {
         // attempt to acquire the Application object
         var appManager = document.getElementById('applicationManager');
