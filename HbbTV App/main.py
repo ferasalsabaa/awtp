@@ -1,18 +1,13 @@
 import json
-from flask import Flask, render_template
+from flask import Flask, render_template, request
+import socket
 
 app = Flask(__name__)
 
-def load_json():
-    f = open("l-banner.json")
-    json_data = json.load(f)
-    f.close()
-    return json_data
-
 @app.route("/")
 def home():
-    json_data = load_json()
-    return render_template("hbbtv-app.html", json_file = json_data)
+    print(request.remote_addr)
+    return render_template("hbbtv-app.html")
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(port=5000, debug=True)
