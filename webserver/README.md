@@ -10,4 +10,4 @@
 ```
 
 If the following message shows up in your terminal, the server is ready: 
-![Terminal Message after running the server](webserver/run_server.png)
+![Terminal Message after running the server](./run_server.png)
