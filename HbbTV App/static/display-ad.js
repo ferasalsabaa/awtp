@@ -95,7 +95,7 @@ function render_standard_banner(json_file){
     start();
 
     // delete banner from DOM after specific duration and request new ad after 20sec
-    setTimeout(() => {delete_ad(div_elem.id); setTimeout(request_Ad, 20000)}, json_file['generalInfo']['duration']);
+    setTimeout(() => {delete_ad(div_elem.id); deactivate_button(); setTimeout(request_Ad, 20000)}, json_file['generalInfo']['duration']);
     // deactivate_button();
 }
 
@@ -190,11 +190,14 @@ function render_l_banner(json_file){
     }, json_file['generalInfo']['duration'])
 }
 
+function deactivate_button(){
+    rcUtils.unregisterKeyEventListener();
+}
+
 // delete banner from DOM
 function delete_ad(element_id) {
     var item = document.getElementById(element_id);
     item.remove();
-    scene.initialize();
 }
 
 // grow video back to full size and then delete l-banner from DOM
@@ -211,6 +214,7 @@ function delete_lBanner(element_id) {
         delete_ad("red_button_notification_field")
         setTimeout(request_Ad, 20000)
     }, 2000)
+    deactivate_button();
 }
 
 var scene = {
@@ -230,14 +234,14 @@ var scene = {
         try{
             // redButtonDiv2 only exists if banner is l-banner
             this.redButtonDiv2 = document.getElementById('red_button_notification_field_2')
-        }
-        catch(e){}
+        } catch(e){}
         // register RC button event listener
         rcUtils.registerKeyEventListener();
         // initial state is app_area hidden
         this.hidePromoCode();
         // render the scene so it is ready to be shown
         this.render();
+        // rcUtils.setKeyset(this.appObject, rcUtils.MASK_CONSTANT_RED);
     },
     showPromoCode: function() {
         this.isPromoCodeVisible = true;
@@ -251,7 +255,7 @@ var scene = {
         banner_text.innerHTML = this.old_text;
         this.isPromoCodeVisible = false;
         // when hidden, app reacts only to red button key press (show app scene)
-        // rcUtils.setKeyset(this.appObject, rcUtils.MASK_CONSTANT_RED);
+        rcUtils.setKeyset(this.appObject, rcUtils.MASK_CONSTANT_RED);
     },
     timerTick: function() {
         // check if timeout occurred
