@@ -30,3 +30,7 @@ Setting up the web server
 
 Setting up the HbbTV App
 - Install the HybridTvViewer Plugin for your browser [see here](https://github.com/karl-rousseau/HybridTvViewer)
+
+## Running all components
+
+See the READMEs in the respective folder of the component to learn how this component is executed and used.
