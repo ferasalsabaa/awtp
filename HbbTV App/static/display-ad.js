@@ -220,11 +220,6 @@ var scene = {
     isPromoCodeVisible: false,
     redButtonDiv: null,
     redButtonDiv2 : null,
-    lastNavigationButtonPressed: null,
-    lastPlaybackButtonPressed: null,
-    lastNumericButtonPressed: null,
-    shouldReactToPlaybackButtons: false,
-    shouldReactToNumericButtons: false,
     old_text: null,
     timeout: 0,
     initialize: function(appObj) {
@@ -233,6 +228,7 @@ var scene = {
         this.redButtonDiv = document.getElementById('red_button_notification_field');
         this.old_text = this.redButtonDiv.firstChild.firstChild.innerHTML;
         try{
+            // redButtonDiv2 only exists if banner is l-banner
             this.redButtonDiv2 = document.getElementById('red_button_notification_field_2')
         }
         catch(e){}
@@ -243,110 +239,29 @@ var scene = {
         // render the scene so it is ready to be shown
         this.render();
     },
-    // getRelevantButtonsMask: function() {
-    //     // mask includes color buttons
-    //     var mask = rcUtils.MASK_CONSTANT_RED + rcUtils.MASK_CONSTANT_GREEN + rcUtils.MASK_CONSTANT_YELLOW 
-    //     // +
-    //     //     rcUtils.MASK_CONSTANT_BLUE;
-    //     // and navigation
-    //     // mask += rcUtils.MASK_CONSTANT_NAVIGATION;
-    //     // add playback buttons if scene should react to them
-    //     // if (this.shouldReactToPlaybackButtons) { mask += rcUtils.MASK_CONSTANT_PLAYBACK; }
-    //     // add numeric buttons if scene should react to them
-    //     // if (this.shouldReactToNumericButtons) { mask += rcUtils.MASK_CONSTANT_NUMERIC; }
-    //     // return calculated button mask 
-    //     return mask;
-    // },
     showPromoCode: function() {
-        // this.appAreaDiv.style.visibility = 'hidden';
-        // this.redButtonDiv.style.visibility = 'visible';
-        // try{
-        //     this.redButtonDiv2.style.visibility = 'visible';
-        //     item.style.zIndex = 0;
-        // } catch(e){}
         this.isPromoCodeVisible = true;
         var banner_text = this.redButtonDiv.firstChild.firstChild;
         banner_text.innerHTML = scene.resp['generalInfo']['promo-code'];
         // when shown, app reacts to all buttons relevant on the scene
-        // rcUtils.setKeyset(this.appObject, this.getRelevantButtonsMask());
-        rcUtils.setKeyset(this.appObject, rcUtils.MASK_CONSTANT_RED);
+        // rcUtils.setKeyset(this.appObject, rcUtils.MASK_CONSTANT_RED);
     },
     hidePromoCode: function() {
-        // this.appAreaDiv.style.visibility = 'hidden';
-        // this.redButtonDiv.style.visibility = 'visible';
-        // try{
-        //     this.redButtonDiv2.style.visibility = 'visible';
-        // }catch(e){}
         var banner_text = this.redButtonDiv.firstChild.firstChild;
         banner_text.innerHTML = this.old_text;
         this.isPromoCodeVisible = false;
         // when hidden, app reacts only to red button key press (show app scene)
-        rcUtils.setKeyset(this.appObject, rcUtils.MASK_CONSTANT_RED);
+        // rcUtils.setKeyset(this.appObject, rcUtils.MASK_CONSTANT_RED);
     },
-    // render: function() {
-        // var shopField = document.getElementById('shop_field');
-        // var codeField = document.getElementById('code_field');
-        // var playbackField = document.getElementById('playback_field');
-        // var togglePlaybackField = document.getElementById('toggle_playback_field');
-        // var numericField = document.getElementById('numeric_field');
-        // var toggleNumericField = document.getElementById('toggle_numeric_field');
-        // var preventField = document.getElementById('prevent_field');
-        // do navigation buttons
-        // if (this.lastNavigationButtonPressed === null) {
-        //     shopField.innerHTML =
-        //         '';
-            
-        // } else if (this.lastNavigationButtonPressed === 'DOWN'){
-        //     shopField.innerHTML = scene.resp['generalInfo']['coop-shops'];
-        // } else if (this.lastNavigationButtonPressed === 'UP') {
-        //     codeField.innerHTML = scene.resp['generalInfo']['promo-code']
-        // }
-        // do playback buttons
-        // if (this.shouldReactToPlaybackButtons) {
-        //     if (this.lastPlaybackButtonPressed === null) {
-        //         playbackField.innerHTML =
-        //             'Please press one of the playback buttons (trick play controls).';
-        //     } else {
-        //         playbackField.innerHTML = this.lastPlaybackButtonPressed;
-        //     }
-        //     togglePlaybackField.innerHTML = 'Disable playback buttons';
-        // } else {
-        //     playbackField.innerHTML =
-        //         'Please press the green button to enable playback buttons.';
-        //     togglePlaybackField.innerHTML = 'Enable playback buttons';
-        // }
-        // do numeric buttons
-        // if (this.shouldReactToNumericButtons) {
-        //     if (this.lastNumericButtonPressed === null) {
-        //         numericField.innerHTML =
-        //             'Please press one of the numeric buttons (0 ... 9).';
-        //     } else {
-        //         numericField.innerHTML = this.lastNumericButtonPressed;
-        //     }
-        //     toggleNumericField.innerHTML = 'Disable numeric buttons';
-        // } else {
-        //     numericField.innerHTML =
-        //         'Please press the yellow button to enable numeric buttons.';
-        //     toggleNumericField.innerHTML = 'Enable numeric buttons';
-        // }
-        // // do prevent field
-        // preventField.innerHTML = testdi;                                                
-    // },
     timerTick: function() {
         // check if timeout occurred
         if (scene.timeout > 0) {
-            // not yet, display message
-            // var preventField = document.getElementById('prevent_field');
-            // preventField.innerHTML = 'The app shall not receive RC button events for ' +
-            //     scene.timeout + ' seconds.';
             // decrement timeout and reschedule for 1 second
             scene.timeout--;
             setTimeout(scene.timerTick, 1000);
         } else {
             // timeout occurred, start reacting to buttons again
             rcUtils.setKeyset(this.appObject, rcUtils.MASK_CONSTANT_RED);
-            // and rerender scene
-            scene.render();
         }
     }
 };
@@ -354,8 +269,7 @@ var scene = {
 // RC button press handler function
 function handleKeyCode(kc) {
     try {
-        // var shouldRender = true;
-        // process buttons
+        // process red button
         switch (kc) {
             case VK_RED:
                 // red button shows & hides the app scene
@@ -367,79 +281,7 @@ function handleKeyCode(kc) {
                 // no need to rerender complete scene
                 shouldRender = false;
                 break;
-            // case VK_GREEN:
-            //     // green button toggles playback buttons
-            //     if (scene.shouldReactToPlaybackButtons) {
-            //         scene.shouldReactToPlaybackButtons = false;
-            //     } else {
-            //         scene.shouldReactToPlaybackButtons = true;
-            //         scene.lastPlaybackButtonPressed = null;
-            //     }
-            //     rcUtils.setKeyset(scene.appObject, scene.getRelevantButtonsMask());
-            //     break;
-            // case VK_YELLOW:
-            //     // yellow button toggles numeric buttons
-            //     if (scene.shouldReactToNumericButtons) {
-            //         scene.shouldReactToNumericButtons = false;
-            //     } else {
-            //         scene.shouldReactToNumericButtons = true;
-            //         scene.lastNumericButtonPressed = null;
-            //     }
-            //     rcUtils.setKeyset(scene.appObject, scene.getRelevantButtonsMask());
-            //     break;
-            // case VK_BLUE:
-            //     // blue button prevents user input for 10 seconds
-            //     rcUtils.setKeyset(scene.appObject, 0); // this will prevent the app from receiving further RC button events
-            //     scene.timeout = 10;
-            //     scene.timerTick();
-            //     // no need to rerender complete scene
-            //     shouldRender = false;
-            //     break;
-            // case VK_LEFT:
-            //     // left button
-            //     scene.lastNavigationButtonPressed = 'LEFT';
-            //     var ad_link_left = scene.resp['generalInfo']['link-url']
-            //     console.log("xx"+ad_link_left);
-            //     window.open(ad_link_left,'_blank');
-            //     window.open(ad_link_left);
-            //     break;
-            // case VK_RIGHT:
-            //     // right button
-            //     scene.lastNavigationButtonPressed = 'RIGHT';
-            //     var ad_link_right = scene.resp['generalInfo']['link-url']
-            //     console.log("ad_link_right");
-            //     console.log(ad_link_right);
-            //     window.open(ad_link_right,'_blank');
-            //     window.open(ad_link_rght);
-            //     break;
-            // case VK_DOWN:
-            //     // down button
-            //     scene.lastNavigationButtonPressed = 'DOWN';
-            //     break;
-            // case VK_UP:
-            //     // up button
-            //     scene.lastNavigationButtonPressed = 'UP';
-            //     break;
-            // case VK_ENTER:
-            //     // OK/ENTER button
-            //     scene.lastNavigationButtonPressed = 'OK / ENTER';
-            //     break;
-            // case VK_BACK:
-            //     // BACK button
-            //     scene.lastNavigationButtonPressed = 'BACK';
-            //     let ad_link = document.getElementById("red_button_notification_field").name;
-            //     console.log(ad_link);
-            //     window.open(ad_link,'_blank');
-            //     window.open(ad_link);
-            //     break;
-            // default:
-            //     // pressed unhandled key
-            //     shouldRender = false;
         }
-        // if (shouldRender) {
-        //     // render scene
-        //     scene.render();
-        // }
     } catch (e) {
         // pressed unhandled key, catch the error
     }
