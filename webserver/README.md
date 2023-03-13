@@ -10,4 +10,4 @@
 ```
 
 If the following message shows up in your terminal, the server is ready: 
-![Terminal Message after running the server](https://drive.google.com/file/d/13znGQs1ejL0hYBe_C70H-LMsa05UF8eP/view?usp=share_link)
+![Terminal Message after running the server](webserver/run_server.png)
