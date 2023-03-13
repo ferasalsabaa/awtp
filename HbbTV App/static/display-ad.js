@@ -8,18 +8,26 @@ function request_Ad() {
     console.log('Requesting Ad!')
     const d = new Date();
     let minutes = d.getMinutes();
-    console.log(d)
+    var parser, xmlDoc;
     $.ajax({
         type: 'GET',
         contentType: 'application/json; charset=utf-8',
         url: 'http://127.0.0.1:8000/ads/random',
-        responseType:'application/json',
-        data: { minute : minutes},
-        dataType: 'json',
+        // responseType:'application/json',
+        // data: { minute : minutes},
+        // dataType: 'xml',
         success: function (response) {
-            console.log(response)
-            call_render(response)
-            scene.resp = response
+            console.log('')
+            parser = new DOMParser();
+            xmlDoc = parser.parseFromString(response, 'text/xml')
+            console.log(xmlDoc)
+            console.log(xmlDoc.getElementsByTagName('StaticResource')[0].childNodes[0].nodeValue)
+            $.getJSON(`${xmlDoc.getElementsByTagName('StaticResource')[0].childNodes[0].nodeValue}`, function(data) {
+                console.log(data)
+                call_render(data)
+                scene.resp = data
+            // JSON result in `data` variable
+            });
         }
     })
 }
