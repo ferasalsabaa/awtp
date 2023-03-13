@@ -1,6 +1,24 @@
-export const banner_json = {
+export const empty_banner_json = {
     'banner-data':{
-        'generalInfo':{},
+        'generalInfo':{
+        },
         'elements': {}
     }
 }
+
+export const initBannerJSON = (templateType) => ({
+    'banner-data': {
+        'generalInfo':{
+            ...(
+                templateType === 0 ? {
+                    'width': '60%',
+                    'height': '100px',
+                    'alignment': 'center',
+                } : {
+                    'width': '20%',
+                    'height': '15%',
+                }
+            ),
+        }
+    }
+})

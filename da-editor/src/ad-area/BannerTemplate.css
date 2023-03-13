@@ -1,0 +1,53 @@
+.banner-element{
+    position: absolute;
+    margin-right: 20px;
+}
+
+.remove-button-div{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.remove-button{
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    top: 0;
+    right: 0;
+}
+
+.is-over {
+    filter: brightness(0.6);
+}
+
+.banner-text-element {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 40px;
+    border: 1px solid black;
+}
+
+.banner-image-element {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    height: 70px;
+    border: 1px solid black;
+    overflow: hidden;
+}
+
+
+.banner-image-element img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}

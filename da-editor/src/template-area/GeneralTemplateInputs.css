@@ -6,12 +6,11 @@
 
 .general-info-inputs label{
     font-size: large;
-    text-decoration: underline;
 }
 
 .general-info-inputs input, 
 .general-info-inputs select{
-    width: 200px;
+    width: 120px;
     height: 20px;
     margin-left: 10px;
     border: 1px solid gray;
@@ -20,19 +19,12 @@
 
 .label-input{
     margin-bottom: 10px;
-}
-
-.label-input label{
-    margin-bottom: 5px;
-}
-
-.first-row{
     display: flex;
-    flex-direction: row;
-    margin-bottom: 10px;
 }
 
-.banner-attributes{
-    padding: 10px;
-    border: 1px solid black;
+.label-input label {
+    margin-bottom: 5px;
+    width: 100px;
+    text-align: left;
+    margin-left: 8px;
 }

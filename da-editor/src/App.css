@@ -24,6 +24,12 @@
   padding: 1rem;
 }
 
+.App-body { 
+  max-width: 1200px;
+  min-width: 900px;
+  margin: 0 auto;
+}
+
 .App-link {
   color: #61dafb;
 }

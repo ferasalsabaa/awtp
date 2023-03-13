@@ -11,110 +11,92 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-@app.route("/upload", methods=['POST'])
-def upload_file():
-    if request.method == 'POST':
-        print(request.get_json())
-        json_string = json.dumps(request.get_json())
-        now = datetime.now()
-        json_file_name = str(now.strftime('%d_%m_%Y_%H_%M_%S')) + '.json'
-        minute = int(json_file_name.split("_")[4])
-        if minute % 2 == 0:
-            files_folder = Path('public/even/')
-            json_file = open(files_folder / json_file_name, 'w+')
-            json_file.write(json_string)
-            json_file.close()
-        else:
-            files_folder = Path('public/odd/')
-            json_file = open(files_folder / json_file_name, 'w+')
-            json_file.write(json_string)
-            json_file.close()
-        print(json_file_name)
-        print('Success')
-        return 'Success'   
+ads_folder = Path('public/ads/')
+template_folder = Path('public/ad-templates/')
 
-@app.route("/get_ad", methods=['GET'])
-def send_file():
+# Display-Ad Editor posts ads to this route, 
+# ads are saved in the ads_folder
+@app.route("/ads", methods=['POST'])
+def create_ad():
+    json_string = json.dumps(request.get_json())
+    now = datetime.now()
+    json_file_name = str(request.get_json()['generalInfo']['name']) + '_' + str(now.strftime('%d_%m_%Y_%H_%M_%S')) + '.json'
+    json_file = open(ads_folder / json_file_name, 'w+')
+    json_file.write(json_string)
+    json_file.close()
+    print(json_file_name)
+    print('Success')
+    return 'Success'   
+
+# HbbTV App requests ads from this route 
+# function picks a random ad and returns a VAST response
+@app.route("/ads/random", methods=['GET'])
+def get_random_ad():
+    print("Request Incoming")
     if request.method == 'GET':
-        minute_requested = int(request.args.getlist('minute')[0])
-        print(request.args.getlist('minute')[0])
-        if minute_requested % 2 == 0:
-            files_folder = Path('public/even/')
-            file_path = str(random.choice(os.listdir(files_folder)))
-            with open(files_folder / file_path, 'r') as openfile:
-                json_object = json.load(openfile)
-            print(file_path)
-        else:
-            files_folder = Path('public/odd/')
-            file_path = str(random.choice(os.listdir(files_folder)))
-            with open(files_folder / file_path, 'r') as openfile:
-                json_object = json.load(openfile)
-        print (json_object)
-        vast_xml = create_vast_xml(json_object)
-        print (vast_xml)
-        return json_object
+        file_path = str(random.choice(os.listdir(ads_folder)))
+        with open(ads_folder / file_path, 'r') as openfile:
+            json_object = json.load(openfile)
+            print('JSON Object: ', json_object)
+        
+        vast_object = generate_vast_xml(json_object, file_path)
+        return vast_object
     return 'No'
 
-@app.route('/json-to-vast', methods=['POST'])
-def json_to_vast():
-    json_data = request.get_json()
+# HbbTV App reads banner JSON from here, URL in VAST response
+@app.route('/<filepath>')
+def open_json(filepath):
+    with open(ads_folder / filepath, 'r') as openfile:
+        json_object = json.load(openfile)
+    return json_object
 
-    vast_xml = create_vast_xml(json_data)
+# Display-Ad Editor posts banner templates to this route
+@app.route("/templates", methods=['POST'])
+def create_template():
+    json_string = request.get_json()
+    json_file_name = json_string['generalInfo']['name'] + '.json'
+    json_file = open(template_folder / json_file_name, 'w+')
+    json_file.write(json.dumps(json_string))
+    json_file.close()
+    return 'Success'   
 
-    response = Response(vast_xml, content_type='application/xml')
+# Display-Ad Editor gets all saved banner templates from here
+@app.route("/templates", methods=['GET'])
+def get_templates():
+    file_paths = [f for f in os.listdir(template_folder) if os.path.isfile(template_folder / f)]
+    all_templates = []
+    for f in file_paths:
+        with open(template_folder / f, 'r') as openfile:
+            json_object = json.load(openfile)
+        all_templates.append(json_object)
+    return all_templates
 
-    return response
+# function that uses banner JSON to create a VAST XML
+def generate_vast_xml(json, filepath):
+    file_url = 'http://127.0.0.1:8000/' + filepath
+    duration = json['generalInfo']['duration']
+    ad_name = filepath.split('_')[0]
 
-def create_vast_xml(json_data):
-    general_info = json_data['generalInfo']
-    elements = json_data['elements']
-
-    type_ad = general_info['type']
-    background_color = general_info['background-color']
-    link_url = general_info['link-url']
-    coop_shops = general_info['coop-shops']
-    promo_code = general_info['promo-code']
-    duration = general_info['duration']
-
-    element = elements['element0']
-    type_elemnt = element['type']
-    content = element['content']
-    font_size = element['font-size']
-    color = element['color']
-    text_decoration = element['text_decoration']
-    font_weight = element['font-weight']
-    text_align = element['text-align']
-    coordinates = element['coordinates']
-    coordinates_top = coordinates['top']
-    coordinates_left = coordinates['left']
-
-    vast_xml = f'''<VAST version="4.2">
-<generalInfo>
-  <type>{type_ad}</type>
-  <background-color>{background_color}</background-color>
-  <link-url>{link_url}</link-url>
-  <coop-shops>{coop_shops}</coop-shops>
-  <promo-code>{promo_code}</promo-code>
-  <duration>{duration}</duration>
-</generalInfo>
-<elements>
-  <element0>
-    <type>{type_elemnt}</type>
-    <content>{content}</content>
-    <font-size>{font_size}</font-size>
-    <color>{color}</color>
-    <text_decoration>{text_decoration}</text_decoration>
-    <font-weight>{font_weight}</font-weight>
-    <text-align>{text_align}</text-align>
-    <coordinates>
-      <top>{coordinates_top}</top>
-      <left>{coordinates_left}</left>
-    </coordinates>
-  </element0>
-</elements>
-
-    </VAST>'''
+    vast_xml =  f'''<VAST version="4.2">
+        <Ad id="{ad_name}">
+            <InLine>
+                <AdTitle>{ad_name}</AdTitle>
+                <Creatives>
+                    <Creative>
+                        <NonLinearAds>
+                            <NonLinear>
+                                <StaticResource>{file_url}</StaticResource>
+                                <Duration>{duration}</Duration>
+                            </NonLinear>
+                        </NonLinearAds>
+                    </Creative>
+                </Creatives>
+            </InLine>
+        </Ad>
+    </VAST>
+    '''
     return vast_xml
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=8000)
