@@ -17,22 +17,16 @@ This project consists of 3 different components.
 ## Installation
 
 Setting up the Display-Ad Editor
-
-```bash
-  Install Node.js [see here](https://nodejs.org/en/download/)
-```
+- Install Node.js [see here](https://nodejs.org/en/download/)
     
 Setting up the web server
+- Install Python [see here](https://www.python.org/downloads/)
+- After installing python, open your Terminal and run the following commands:
 
 ```bash
-    Install Python [see here](https://www.python.org/downloads/)
-    After installing python, open your Terminal and run the following commands:
     - pip install Flask
     - pip install flask-cors
 ```
 
 Setting up the HbbTV App
-
-```bash
-    Install the HybridTvViewer Plugin \for your browser [see here](https://github.com/karl-rousseau/HybridTvViewer)
-```
+- Install the HybridTvViewer Plugin \for your browser [see here](https://github.com/karl-rousseau/HybridTvViewer)
