@@ -34,5 +34,5 @@ Setting up the web server
 Setting up the HbbTV App
 
 ```bash
-    Install the HybridTvViewer Plugin for your browser (https://github.com/karl-rousseau/HybridTvViewer)
+    Install the HybridTvViewer Plugin /for your browser (https://github.com/karl-rousseau/HybridTvViewer)
 ```
