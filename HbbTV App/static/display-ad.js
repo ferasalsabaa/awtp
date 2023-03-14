@@ -7,15 +7,11 @@ function wait_before_requesting_first_ad(){
 function request_Ad() {
     console.log('Requesting Ad!')
     const d = new Date();
-    let minutes = d.getMinutes();
     var parser, xmlDoc;
     $.ajax({
         type: 'GET',
         contentType: 'application/json; charset=utf-8',
         url: 'http://127.0.0.1:8000/ads/random',
-        // responseType:'application/json',
-        // data: { minute : minutes},
-        // dataType: 'xml',
         success: function (response) {
             console.log('')
             parser = new DOMParser();
