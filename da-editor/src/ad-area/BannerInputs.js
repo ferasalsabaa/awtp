@@ -161,7 +161,6 @@ export const BannerInputs = ({template, elements, dict, setElements}) => {
                                     <option></option>
                                     <option>none</option>
                                     <option>underline</option>
-                                    <option>underline dotted</option>
                                     <option>line-through</option>
                                     <option>overline</option>
                                 </select>
