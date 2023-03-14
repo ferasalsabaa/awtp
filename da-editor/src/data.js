@@ -4,7 +4,7 @@ export const empty_banner_json = {
         },
         'elements': {}
     }
-}
+};
 
 export const initBannerJSON = (templateType) => ({
     'banner-data': {

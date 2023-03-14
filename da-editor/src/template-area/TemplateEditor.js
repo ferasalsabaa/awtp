@@ -8,8 +8,6 @@ export const TemplateEditor = ({ templateType }) => {
     const [elements, setElements] = React.useState([]);
     const [bannerJSON, setBannerJSON] = React.useState(initBannerJSON(templateType));
 
-    console.log(elements)
-    const input_dict = {}
 
     if (templateType === 0){
         bannerJSON['banner-data']['generalInfo']['type'] = 'standard-banner';
