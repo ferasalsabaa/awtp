@@ -32,7 +32,7 @@ export const TemplateEditor = ({ templateType }) => {
     
     return (
         <div>
-            <h2>Template Editor</h2>
+            <h2>Template Creator</h2>
             Selected template: {templateType}
             <div className='da-editor'>
                 <div className='general-info'>
