@@ -18,7 +18,7 @@ You may also see any lint errors in the console.
 
 ### Using the Display-Ad Editor
 
-We have recorded a small tutorial, which should illustrate how to use the Display-Ad Editor. You can find the video [here].
+We have recorded a small tutorial, which should illustrate how to use the Display-Ad Editor. You can find the video [here](https://drive.google.com/file/d/1eM1knrUX1nPVWujt0Yog2zR1-qTk9SJ7/view?usp=share_link).
 
 Also make sure you are running the web server! Otherwise the Display-Ad Editor won't work properly.
 
