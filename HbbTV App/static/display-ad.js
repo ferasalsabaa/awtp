@@ -6,7 +6,6 @@ function wait_before_requesting_first_ad(){
 // request ad from webserver
 function request_Ad() {
     console.log('Requesting Ad!')
-    const d = new Date();
     var parser, xmlDoc;
     $.ajax({
         type: 'GET',
